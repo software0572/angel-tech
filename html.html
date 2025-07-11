@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ANGEL Tech App - Catálogo Completo</title>
+<style>
+  /* Reset y estilos básicos */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 20px;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #00ffe0;
+    min-height: 100vh;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 0 12px #00ffe0;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+  }
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+  #filters button {
+    background: transparent;
+    border: 2px solid #00ffe0;
+    color: #00ffe0;
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.3s, color 0.3s;
+  }
+  #filters button.active,
+  #filters button:hover {
+    background: #00ffe0;
+    color: #111;
+    box-shadow: 0 0 20px #00ffe0;
+  }
+  #product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto 30px;
+  }
+  .product-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 0 20px #00ffe0;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .product-card:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 40px #00ffe0;
+  }
+  .product-image {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 15px;
+    background: #000;
+    box-shadow: 0 0 15px #00ffe0 inset;
+    margin-bottom: 12px;
+  }
+  .product-name {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+  .product-price {
+    color: #00ffae;
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+  }
+  /* Modal de detalles */
+  #modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  #modal-content {
+    background: #111;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    color: #00ffe0;
+    box-shadow: 0 0 35px #00ffe0;
+    overflow-y: auto;
+    max-height: 90vh;
+    position: relative;
+    padding: 25px 30px;
+  }
+  #modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff4d4d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    user-select: none;
+  }
+  #modal-close:hover {
+    color: #ff0000;
+  }
+  #modal-content img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 25px #00ffe0 inset;
+  }
+  #modal-content h2 {
+    margin-bottom: 12px;
+    font-size: 2rem;
+  }
+  #modal-content p {
+    line-height: 1.5;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  #modal-content ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+  #modal-content ul li {
+    margin-bottom: 6px;
+  }
+  /* Scrollbar modal */
+  #modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  #modal-content::-webkit-scrollbar-thumb {
+    background-color: #00ffe0;
+    border-radius: 20px;
+  }
+  @media(max-width: 650px) {
+    #modal-content {
+      padding: 15px 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ANGEL Tech App</h1>
+  <p>Catálogo tecnológico avanzado</p>
+</header>
+
+<div id="filters" role="toolbar" aria-label="Filtros de categoría">
+  <button class="active" data-filter="todos" aria-pressed="true">Todos</button>
+  <button data-filter="telefono" aria-pressed="false">Teléfonos</button>
+  <button data-filter="tablet" aria-pressed="false">Tablets</button>
+  <button data-filter="accesorio" aria-pressed="false">Accesorios</button>
+  <button data-filter="camara" aria-pressed="false">Cámaras</button>
+</div>
+
+<div id="product-list" role="list" aria-live="polite" aria-label="Lista de productos">
+  <!-- Aquí se cargan los productos -->
+</div>
+
+<!-- Modal para detalles -->
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div id="modal-content">
+    <span id="modal-close" aria-label="Cerrar detalles">&times;</span>
+    <img id="modal-image" src="" alt="" />
+    <h2 id="modal-title"></h2>
+    <p id="modal-price"></p>
+    <p id="modal-description"></p>
+    <ul id="modal-specs"></ul>
+  </div>
+</div>
+
+<script>
+  const products = [
+    {
+      id: 1,
+      nombre: "Samsung Galaxy S23 Ultra",
+      categoria: "telefono",
+      precio: 1199,
+      descripcion: "El smartphone más avanzado de Samsung con cámara profesional y pantalla Dynamic AMOLED 2X.",
+      imagen: "https://images.samsung.com/is/image/samsung/p6pim/levant/galaxy-s23-ultra/gallery/levant-galaxy-s23-ultra-5g-g988-sm-g998bzkgmea-530938031?$720_576_PNG$",
+      specs: [
+        "Pantalla: 6.8\" Dynamic AMOLED 2X",
+        "Procesador: Snapdragon 8 Gen 2",
+        "RAM: 12 GB",
+        "Almacenamiento: 256/512 GB",
+        "Cámara principal: 200 MP",
+        "Batería: 5000 mAh",
+        "Sistema operativo: Android 13"
+      ]
+    },
+    {
+      id: 2,
+      nombre: "Apple iPhone 14 Pro",
+      categoria: "telefono",
+      precio: 999,
+      descripcion: "Potente iPhone con tecnología ProMotion y sistema de cámaras avanzado con modo cine.",
+      imagen: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-deep-purple-select?wid=470&hei=556&fmt=png-alpha&.v=1660753619946",
+      specs: [
+        "Pantalla: 6.1\" Super Retina XDR OLED",
+        "Procesador: A16 Bionic",
+        "RAM: 6 GB",
+        "Almacenamiento: 128/256/512 GB",
+        "Cámara principal: 48 MP",
+        "Batería: 3200 mAh",
+        "Sistema operativo: iOS 16"
+      ]
+    },
+    {
+      id: 3,
+      nombre: "Apple iPad Pro 2022",
+      categoria: "tablet",
+      precio: 1099,
+      descripcion: "Tablet profesional con chip M2 para todas tus tareas creativas y de productividad.",
+      imagen: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-11-select-202210?wid=470&hei=556&fmt=png-alpha&.v=1664497345921",
+      specs: [
+        "Pantalla: 11\" Liquid Retina",
+        "Procesador: Apple M2",
+        "RAM: 8 GB",
+        "Almacenamiento: 128/256/512 GB",
+        "Cámara trasera: 12 MP",
+        "Batería: 7538 mAh",
+        "Sistema operativo: iPadOS 16"
+      ]
+    },
+    {
+      id: 4,
+      nombre: "Sony WH-1000XM5",
+      categoria: "accesorio",
+      precio: 349,
+      descripcion: "Auriculares con cancelación de ruido líder en la industria y calidad de sonido premium.",
+      imagen: "https://cdn.sony-asia.com/image/5d9c88d4b6b59d130bb7fa30-sony-wh1000xm5-bluetooth-headphones-600x600.png",
+      specs: [
+        "Tipo: Over-ear",
+        "Cancelación activa de ruido",
+        "Bluetooth 5.2",
+        "Duración batería: 30 horas",
+        "Carga rápida: 3 horas con 3 minutos",
+        "Micrófono incorporado"
+      ]
+    },
+    {
+      id: 5,
+      nombre: "GoPro HERO11 Black",
+      categoria: "camara",
+      precio: 499,
+      descripcion: "Cámara de acción para capturar videos épicos en 5.3K y fotos de alta resolución.",
+      imagen: "https://gopro.com/content/dam/gopro/en/products/hero11-black/hero11-black-gallery-1.png",
+      specs: [
+        "Resolución de video: 5.3K a 60fps",
+        "Fotos: 27 MP",
+        "Pantalla táctil frontal y trasera",
+        "Estabilización HyperSmooth 5.0",
+        "Impermeable hasta 10 metros"
+      ]
+    },
+    {
+      id: 6,
+      nombre: "Xiaomi Redmi Note 12",
+      categoria: "telefono",
+      precio: 299,
+      descripcion: "Smartphone con gran batería, pantalla AMOLED y buen rendimiento para el precio.",
+      imagen: "https://i01.appmifile.com/webfile/globalimg/products/pc/redmi-note-12-pro/specs-01.png",
+      specs: [
+        "Pantalla: 6.67\" AMOLED",
+        "Procesador: Snapdragon 4 Gen 1",
+        "RAM: 6/8 GB",
+        "Almacenamiento: 128/256 GB",
+        "Cámara principal: 48 MP",
+        "Batería: 4500 mAh",
+        "Sistema operativo: MIUI 14 basado en Android 12"
+      ]
+    }
+  ];
+
+  const productList = document.getElementById('product-list');
+  const filterButtons = document.querySelectorAll('#filters button');
+
+  function renderProducts(filter = 'todos') {
+    productList.innerHTML = '';
+    const filteredProducts = filter === 'todos' ? products : products.filter(p => p.categoria === filter);
+
+    filteredProducts.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.style.animation = `fadeInUp 0.5s ease forwards`;
+      card.style.animationDelay = `${i * 0.1}s`;
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-pressed', 'false');
+      card.setAttribute('aria-label', `Ver detalles de ${p.nombre}`);
+
+      card.innerHTML = `
+        <img src="${p.imagen}" alt="${p.nombre}" class="product-image" />
+        <div class="product-name">${p.nombre}</div>
+        <div class="product-price">$${p.precio}</div>
+        <div class="product-desc">${p.descripcion}</div>
+      `;
+
+      card.addEventListener('click', () => showModal(p));
+      card.addEventListener('keypress', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showModal(p);
+        }
+      });
+
+      productList.appendChild(card);
+    });
+  }
+
+  // Modal lógica
+  const modal = document.getElementById('modal');
+  const modalClose = document.getElementById('modal-close');
+  const modalImage = document.getElementById('modal-image');
+  const modalTitle = document.getElementById('modal-title');
+  const modalPrice = document.getElementById('modal-price');
+  const modalDescription = document.getElementById('modal-description');
+  const modalSpecs = document.getElementById('modal-specs');
+
+  function showModal(product) {
+    modalImage.src = product.imagen;
+    modalImage.alt = product.nombre;
+    modalTitle.textContent = product.nombre;
+    modalPrice.textContent = `Precio: $${product.precio}`;
+    modalDescription.textContent = product.descripcion;
+    modalSpecs.innerHTML = '';
+    product.specs.forEach(spec => {
+      const li = document.createElement('li');
+      li.textContent = spec;
+      modalSpecs.appendChild(li);
+    });
+    modal.style.display = 'flex';
+    modalClose.focus();
+  }
+
+  modalClose.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Tecla ESC para cerrar modal
+  window.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && modal.style.display === 'flex') {
+      modal.style.display = 'none';
+    }
+  });
+
+  // Filtros
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      renderProducts(btn.getAttribute('data-filter'));
+    });
+  });
+
+  // Animación fadeInUp
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Render inicial
+  renderProducts();
+
+</script>
+</body>
+</html>
