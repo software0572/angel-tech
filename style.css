@@ -1,0 +1,44 @@
+body {
+  background-color: #000000;
+  color: #00ff99;
+  font-family: monospace;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #00ffff;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+select, textarea, button {
+  width: 100%;
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #00ff99;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.post {
+  border: 1px dashed #00ff99;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.category {
+  font-weight: bold;
+  color: #00ffff;
+}
