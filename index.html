@@ -1,149 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Catálogo AngelTech</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
-      background-size: 400% 400%;
-      animation: bgAnim 10s ease infinite;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    @keyframes bgAnim {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 30px;
-    }
-    .filters, .search-box {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .filter-btn, #search {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .filter-btn {
-      background: #fff;
-      color: #444;
-      border: 2px solid #444;
-    }
-    .filter-btn:hover {
-      background: #444;
-      color: #fff;
-    }
-    #search {
-      border: 2px solid #999;
-      width: 200px;
-    }
-    .product-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-    }
-    .product-card {
-      background: #ffffffcc;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 0 10px #99999999;
-      text-align: center;
-      transition: 0.3s;
-    }
-    .product-card:hover {
-      transform: scale(1.03);
-    }
-    .product-name {
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-    .product-category {
-      color: #666;
-      font-style: italic;
-    }
-    .product-price {
-      font-size: 1.1em;
-      color: #2c3e50;
-      margin-top: 5px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Foro Anónimo Hacker</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
+  <div class="container">
+    <h1>💀 Foro Anónimo Hacker</h1>
 
-  <h1>Catálogo AngelTech</h1>
+    <form id="postForm">
+      <select id="category">
+        <option value="Hacking">Hacking</option>
+        <option value="Tecnología">Tecnología</option>
+        <option value="Programación">Programación</option>
+      </select>
+      <textarea id="message" placeholder="Escribe algo anónimo..." required></textarea>
+      <button type="submit">Publicar</button>
+    </form>
 
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Buscar dispositivo...">
+    <div id="posts"></div>
   </div>
-
-  <div class="filters">
-    <button class="filter-btn" onclick="filterProducts('todos')">Todos</button>
-    <button class="filter-btn" onclick="filterProducts('telefono')">Teléfonos</button>
-    <button class="filter-btn" onclick="filterProducts('tablet')">Tablets</button>
-    <button class="filter-btn" onclick="filterProducts('accesorio')">Accesorios</button>
-    <button class="filter-btn" onclick="filterProducts('camara')">Cámaras</button>
-  </div>
-
-  <div class="product-list" id="productList"></div>
-
-  <script>
-    const products = [
-      { nombre: "Samsung Galaxy S23 Ultra", categoria: "telefono", precio: 1199 },
-      { nombre: "iPhone 14 Pro", categoria: "telefono", precio: 999 },
-      { nombre: "Xiaomi Redmi Note 12", categoria: "telefono", precio: 299 },
-      { nombre: "iPad Pro 2022", categoria: "tablet", precio: 1099 },
-      { nombre: "Samsung Galaxy Tab S8", categoria: "tablet", precio: 699 },
-      { nombre: "Sony WH-1000XM5", categoria: "accesorio", precio: 349 },
-      { nombre: "GoPro HERO11", categoria: "camara", precio: 499 },
-      { nombre: "AirPods Pro 2", categoria: "accesorio", precio: 249 },
-      { nombre: "Canon EOS R5", categoria: "camara", precio: 3899 }
-    ];
-
-    function displayProducts(filtered = products) {
-      const list = document.getElementById("productList");
-      list.innerHTML = "";
-      filtered.forEach(p => {
-        list.innerHTML += `
-          <div class="product-card">
-            <div class="product-name">${p.nombre}</div>
-            <div class="product-category">${p.categoria}</div>
-            <div class="product-price">$${p.precio}</div>
-          </div>`;
-      });
-    }
-
-    function filterProducts(categoria) {
-      if (categoria === 'todos') {
-        displayProducts(products);
-      } else {
-        const filtered = products.filter(p => p.categoria === categoria);
-        displayProducts(filtered);
-      }
-    }
-
-    document.getElementById("search").addEventListener("input", function () {
-      const value = this.value.toLowerCase();
-      const filtered = products.filter(p => p.nombre.toLowerCase().includes(value));
-      displayProducts(filtered);
-    });
-
-    // Inicial
-    displayProducts();
-  </script>
 </body>
-</html>
+                              </html>
