@@ -1,42 +1,74 @@
-const postForm = document.getElementById("postForm");
-const postsContainer = document.getElementById("posts");
-
-// Cargar mensajes al iniciar
-window.onload = () => {
-  const saved = JSON.parse(localStorage.getItem("anonPosts")) || [];
-  saved.forEach(addPostToDOM);
+// --- Configuración Firebase ---
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_DOMINIO.firebaseapp.com",
+  databaseURL: "https://TU_DOMINIO.firebaseio.com",
+  projectId: "TU_PROJECT_ID",
+  storageBucket: "TU_BUCKET.appspot.com",
+  messagingSenderId: "TU_ID",
+  appId: "TU_APP_ID"
 };
 
-// Enviar mensaje
-postForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const message = document.getElementById("message").value;
-  const category = document.getElementById("category").value;
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  const post = {
-    message,
-    category,
-    time: new Date().toLocaleString()
+const postBtn = document.getElementById("postBtn");
+const category = document.getElementById("category");
+const message = document.getElementById("message");
+const postsSection = document.getElementById("posts");
+
+// Publicar post
+postBtn.addEventListener("click", () => {
+  const msg = message.value.trim();
+  const cat = category.value;
+
+  if (!msg) {
+    alert("El mensaje no puede estar vacío.");
+    return;
+  }
+
+  const postData = {
+    category: cat,
+    message: msg,
+    timestamp: Date.now()
   };
 
-  savePost(post);
-  addPostToDOM(post);
-  postForm.reset();
+  db.ref("posts").push(postData);
+  message.value = "";
 });
 
-// Guardar localmente
-function savePost(post) {
-  const saved = JSON.parse(localStorage.getItem("anonPosts")) || [];
-  saved.push(post);
-  localStorage.setItem("anonPosts", JSON.stringify(saved));
-}
+// Mostrar posts en tiempo real
+db.ref("posts").on("value", snapshot => {
+  postsSection.innerHTML = "";
 
-// Mostrar en la página
-function addPostToDOM(post) {
-  const div = document.createElement("div");
-  div.className = "post";
-  div.innerHTML = `<div class="category">[${post.category}]</div>
-                   <p>${post.message}</p>
-                   <small>${post.time}</small>`;
-  postsContainer.prepend(div);
-             }
+  const posts = snapshot.val();
+  if (!posts) return;
+
+  // Convertir a array y ordenar por fecha (desc)
+  const postList = Object.values(posts).sort((a, b) => b.timestamp - a.timestamp);
+
+  postList.forEach(post => {
+    const div = document.createElement("div");
+    div.className = "post";
+    div.innerHTML = `
+      <div class="post-category">[${post.category}]</div>
+      <div class="post-message">${escapeHTML(post.message)}</div>
+      <div class="post-time">${new Date(post.timestamp).toLocaleString()}</div>
+    `;
+    postsSection.appendChild(div);
+  });
+});
+
+// Función para evitar inyección HTML
+function escapeHTML(str) {
+  return str.replace(/[&<>"']/g, function(m) {
+    return ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[m];
+  });
+}
