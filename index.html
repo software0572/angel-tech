@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Foro Anónimo Hacker</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Foro Ético Tech</title>
+<link rel="stylesheet" href="style.css" />
+<script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+<script defer src="forum.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>💀 Foro Anónimo Hacker</h1>
+    <header>
+      <h1>⚡ Foro Ético de angel</h1>
+    </header>
 
-    <form id="postForm">
-      <select id="category">
-        <option value="Hacking">Hacking</option>
-        <option value="Tecnología">Tecnología</option>
-        <option value="Programación">Programación</option>
+    <section class="post-form">
+      <select id="category" aria-label="Seleccionar categoría">
+        <option value="Ciberseguridad">🛡️ Ciberseguridad</option>
+        <option value="Tecnología">💻 Tecnología</option>
+        <option value="Programación">👨‍💻 Programación</option>
+        <option value="Noticias">📰 Noticias</option>
+        <option value="Herramientas">🛠️ Herramientas</option>
       </select>
-      <textarea id="message" placeholder="Escribe algo anónimo..." required></textarea>
-      <button type="submit">Publicar</button>
-    </form>
+      <textarea id="message" placeholder="Comparte tu conocimiento..." maxlength="500" aria-label="Mensaje"></textarea>
+      <button id="postBtn">Publicar</button>
+    </section>
 
-    <div id="posts"></div>
+    <section id="posts"></section>
   </div>
 </body>
-                              </html>
+      </html>
