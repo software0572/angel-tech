@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test App</title>
+    <link rel="canonical" href="https://Web-Dev-Dan.github.io/Test-App/" />
+    <link rel="manifest" href="/Test-App/manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles/style.css" />
+
+    <!-- iOS Meta Data -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Expo" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./imgs/ios/180.png" />
+  </head>
+  <body>
+    <!-- 
+        NOTE:
+        Change version in serviceworker.js each time updates are made to GitHub (or it won't update the cache)
+    -->
+    <!-- Navigation -->
+    <nav class="nav">
+      <h1>MyApp</h1>
+    </nav>
+
+    <!-- Content -->
+    <div class="content-container">
+      <p>Welcome to MyApp!</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>MyApp. &copy; Copyright 2023.</p>
+    </footer>
+
+    <script>
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.register("/Test-App/serviceworker.js", {
+          scope: "/Test-App/",
+        });
+      }
+    </script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

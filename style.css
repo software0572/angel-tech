@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 62.5%;
+}
+
+/* --- Navigation --- */
+.nav {
+  background-color: orange;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+}
+
+.nav h1 {
+  font-size: 2rem;
+}
+
+.content-container {
+  min-height: calc(100vh - 160px);
+  padding: 50px;
+}
+
+.content-container p {
+  font-size: 1.6rem;
+}
+
+/* --- Footer --- */
+.footer {
+  background-color: orange;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 50px;
+}
+
+.footer p {
+  font-size: 1.6rem;
+}
