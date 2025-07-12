@@ -1,33 +1,50 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Foro Ético Tech</title>
-<link rel="stylesheet" href="style.css" />
-<script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-<script defer src="forum.js"></script>
+  <title>Portfolio de Ángel</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>⚡ Foro Ético de angel</h1>
-    </header>
+  <!-- Inicio -->
+  <section id="inicio">
+    <h1>Bienvenido a mi portfolio</h1>
+    <p>Soy Ángel, un desarrollador web con pasión por la tecnología y el diseño.</p>
+  </section>
 
-    <section class="post-form">
-      <select id="category" aria-label="Seleccionar categoría">
-        <option value="Ciberseguridad">🛡️ Ciberseguridad</option>
-        <option value="Tecnología">💻 Tecnología</option>
-        <option value="Programación">👨‍💻 Programación</option>
-        <option value="Noticias">📰 Noticias</option>
-        <option value="Herramientas">🛠️ Herramientas</option>
-      </select>
-      <textarea id="message" placeholder="Comparte tu conocimiento..." maxlength="500" aria-label="Mensaje"></textarea>
-      <button id="postBtn">Publicar</button>
-    </section>
+  <!-- Proyectos -->
+  <section id="proyectos">
+    <h2>Mis proyectos</h2>
+    <div class="proyectos">
+      <div class="proyecto">
+        <img src="proyecto1.jpg" alt="Proyecto 1">
+        <h3>Proyecto 1</h3>
+        <p>Descripción del proyecto 1</p>
+      </div>
+      <div class="proyecto">
+        <img src="proyecto2.jpg" alt="Proyecto 2">
+        <h3>Proyecto 2</h3>
+        <p>Descripción del proyecto 2</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="posts"></section>
-  </div>
+  <!-- Sobre mí -->
+  <section id="sobre-mi">
+    <h2>Sobre mí</h2>
+    <p>Soy un desarrollador web con experiencia en HTML, CSS y JavaScript.</p>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <form>
+      <input type="text" name="nombre" placeholder="Nombre">
+      <input type="email" name="email" placeholder="Email">
+      <textarea name="mensaje" placeholder="Mensaje"></textarea>
+      <button>Enviar</button>
+    </form>
+  </section>
+
+  <script src="script.js"></script>
 </body>
-      </html>
+</html>
