@@ -1,32 +1,212 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MiniTikTok</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OSINT Phone Finder</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      padding: 20px;
+    }
+    #app {
+      background-color: #fff;
+      width: 100%;
+      max-width: 800px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      overflow: hidden;
+      animation: fadeSlide 0.8s ease-out;
+    }
+    header {
+      background: #2a3f54;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+    #mensajeBienvenida, #mensajeAutor {
+      text-align: center;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    #mensajeBienvenida {
+      background: #2980b9;
+      color: white;
+    }
+    #mensajeAutor {
+      background: #34495e;
+      color: white;
+      display: none;
+    }
+    .busqueda, .extra-osint {
+      padding: 1.5rem;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1e8449;
+    }
+    #resultado {
+      background: #ecf0f1;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+      min-height: 100px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
+    .extra-osint h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+    .extra-osint ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+    .extra-osint li {
+      background: #f8f9fa;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .extra-osint li span {
+      display: block;
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+      color: #e67e22;
+    }
+    .extra-osint p {
+      text-align: center;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      color: #555;
+    }
+    @keyframes fadeSlide {
+      0% {opacity: 0; transform: translateY(40px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+  </style>
 </head>
 <body>
   <div id="app">
-    <h1>🎵 Mini TikTok Web</h1>
+    <header><h1>OSINT Phone Finder</h1></header>
+    <div id="mensajeBienvenida">Bienvenido a la plataforma OSINT Phone Finder. Cargando información...</div>
+    <div id="mensajeAutor">Esta página fue creada por José Angel Rivas Sánchez, un especialista en programación y ciberseguridad.</div><div class="busqueda">
+  <label for="numero">Número telefónico:</label>
+  <input type="text" id="numero" placeholder="Ej: 8291234567" maxlength="15" />
+  <label for="pais">Código de país (opcional):</label>
+  <input type="text" id="pais" placeholder="Ej: DO" maxlength="2" />
+  <button id="buscarBtn">Buscar Información</button>
+  <div id="resultado">Introduce un número y presiona Buscar para obtener información.</div>
+</div>
 
-    <div class="video-card">
-      <video src="videos/video1.mp4" controls autoplay loop muted></video>
-      <div class="actions">
-        <button onclick="likeVideo(this)">❤️ Me gusta</button>
-        <input type="text" placeholder="Escribe un comentario...">
-      </div>
-    </div>
+<div class="extra-osint">
+  <h2>Herramientas OSINT Adicionales</h2>
+  <ul>
+    <li>Email Verifier<span>Próximamente</span></li>
+    <li>IP Tracker<span>Funcional</span></li>
+    <li>Redes Sociales<span>Próximamente</span></li>
+    <li>Búsqueda Imagen<span>Funcional</span></li>
+    <li>Detección de Leaks<span>Próximamente</span></li>
+    <li>Checkear IMEI<span>Próximamente</span></li>
+    <li>Geolocalización<span>Próximamente</span></li>
+    <li>Reconocimiento Facial<span>Próximamente</span></li>
+  </ul>
+  <p>Más herramientas serán integradas pronto para potenciar investigaciones avanzadas y análisis OSINT.</p>
+</div>
 
-    <div class="video-card">
-      <video src="videos/video2.mp4" controls autoplay loop muted></video>
-      <div class="actions">
-        <button onclick="likeVideo(this)">❤️ Me gusta</button>
-        <input type="text" placeholder="Escribe un comentario...">
-      </div>
-    </div>
+  </div>  <script>
+    const apiKey = '0160e806256cb2fc38c587cac580a2bc';
 
-  </div>
-  <script src="script.js"></script>
-</body>
-      </html>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('mensajeAutor').style.display = 'block';
+      }, 5000);
+    });
+
+    document.getElementById('buscarBtn').addEventListener('click', () => {
+      const numero = document.getElementById('numero').value.trim();
+      const pais = document.getElementById('pais').value.trim().toUpperCase();
+      const resultadoDiv = document.getElementById('resultado');
+
+      if (!/^\d+$/.test(numero)) {
+        alert('Por favor, ingresa solo dígitos en el número telefónico.');
+        return;
+      }
+      if (pais && !/^[A-Z]{2}$/.test(pais)) {
+        alert('El código de país debe ser de 2 letras (Ej: DO)');
+        return;
+      }
+
+      resultadoDiv.textContent = 'Buscando...';
+      let url = `https://apilayer.net/api/validate?access_key=${apiKey}&number=${numero}&format=1`;
+      if (pais) url += `&country_code=${pais}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (!data.valid) {
+            resultadoDiv.innerHTML = '<strong>Número inválido o no encontrado.</strong>';
+            return;
+          }
+
+          resultadoDiv.innerHTML = `
+            <p><strong>Número válido:</strong> ${data.number}</p>
+            <p><strong>Formato internacional:</strong> ${data.international_format}</p>
+            <p><strong>País:</strong> ${data.country_name}</p>
+            <p><strong>Ubicación:</strong> ${data.location || 'No disponible'}</p>
+            <p><strong>Operador:</strong> ${data.carrier || 'No disponible'}</p>
+            <p><strong>Tipo de línea:</strong> ${data.line_type || 'No disponible'}</p>
+          `;
+        })
+        .catch(err => {
+          resultadoDiv.innerHTML = `<strong>Error al consultar la API:</strong> ${err.message}`;
+        });
+    });
+  </script></body>
+</html>
