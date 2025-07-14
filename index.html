@@ -3,327 +3,275 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Centro OSINT Militar Avanzado - Estado Crítico</title>
+<title>OSINT - Herramientas</title>
 <style>
-  /* Reset */
+  /* Reset y base */
   * {
-    margin: 0; padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0; box-sizing: border-box;
   }
   body, html {
     height: 100%;
-    background: linear-gradient(135deg, #0b1a25, #112c3c);
-    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #ddd;
+    overflow-y: auto;
   }
-  /* Barra crítica arriba */
-  #alertaCritica {
+
+  /* Mensaje superior discreto */
+  #topMessage {
     position: fixed;
     top: 0; left: 0; right: 0;
-    background: #ff3333;
+    background: #2e86decc;
     color: white;
-    font-weight: 900;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
     text-align: center;
-    padding: 0.9rem 1rem;
-    font-size: 1.1rem;
+    user-select: none;
     z-index: 10000;
-    box-shadow: 0 3px 10px #ff3333cc;
-    animation: pulseAlert 2.5s ease-in-out infinite;
-    letter-spacing: 1.5px;
-  }
-  @keyframes pulseAlert {
-    0%, 100% { background-color: #ff3333; }
-    50% { background-color: #ff5555; }
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   }
 
   /* Contenedor principal */
   #app {
-    max-width: 960px;
-    margin: 4rem auto 2rem auto; /* margen superior para dejar espacio a alerta */
-    padding: 1rem 2rem 3rem 2rem;
+    padding: 3rem 1.5rem 2rem 1.5rem; /* espacio para mensaje superior */
+    max-width: 900px;
+    margin: 0 auto;
   }
-  header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  header h1 {
-    font-size: 2rem;
-    color: #3ddc97;
-    text-shadow: 0 0 8px #3ddc97bb;
-    letter-spacing: 3px;
-    font-weight: 900;
-  }
-  /* Grid herramientas */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 1.5rem;
-  }
-  .tool-card {
-    background: #1c2b33;
+
+  /* Sección herramienta */
+  section.tool {
+    background: #1f1f1f;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.8rem;
     border-radius: 12px;
-    padding: 1rem 1.5rem;
-    box-shadow: 0 0 15px #0f3e45;
-    color: #cfd8dc;
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 0 12px #000;
   }
-  .tool-card h2 {
-    color: #3ddc97;
-    font-size: 1.3rem;
-    margin-bottom: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .tool-card h2 .critico {
-    background: #ff4444;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #fff;
-    box-shadow: 0 0 5px #ff4444cc;
-    user-select: none;
-  }
-  .tool-card label {
-    margin-bottom: 0.5rem;
+  section.tool h3 {
+    color: #2e86de;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
     font-weight: 600;
   }
-  .tool-card input[type="text"],
-  .tool-card input[type="email"],
-  .tool-card input[type="url"] {
+  section.tool label {
+    display: block;
+    margin: 1rem 0 0.4rem 0;
+    font-weight: 500;
+    color: #aaa;
+  }
+  section.tool input, section.tool textarea {
+    width: 100%;
     padding: 0.7rem 1rem;
-    border-radius: 6px;
+    border-radius: 10px;
     border: none;
-    background: #274044;
-    color: #cfd8dc;
-    margin-bottom: 1rem;
+    background: #222;
+    color: #eee;
     font-size: 1rem;
-  }
-  .tool-card input[type="text"]:focus,
-  .tool-card input[type="email"]:focus,
-  .tool-card input[type="url"]:focus {
-    background-color: #3ddc97;
-    color: #121b1f;
-    font-weight: 700;
-    outline: none;
-  }
-  .tool-card button {
-    background-color: #3ddc97;
-    color: #121b1f;
-    border: none;
-    padding: 10px 0;
-    font-weight: 700;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #3ddc97aa;
+    font-family: inherit;
+    box-shadow: inset 0 0 8px #000;
     transition: background-color 0.3s ease;
   }
-  .tool-card button:hover:not(:disabled) {
-    background-color: #29b774;
+  section.tool input:focus, section.tool textarea:focus {
+    outline: none;
+    background: #2e86de33;
+    box-shadow: 0 0 10px #2e86decc;
+    color: #fff;
   }
-  .tool-card button:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-    box-shadow: none;
-    color: #888;
+  section.tool button {
+    margin-top: 1.4rem;
+    background: #2e86de;
+    border: none;
+    padding: 1rem 0;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px #2e86decc;
+    transition: background-color 0.3s ease;
+    width: 100%;
   }
-  .tool-result {
-    background: #253a3f;
-    padding: 0.8rem 1rem;
-    border-radius: 8px;
-    font-family: monospace;
+  section.tool button:hover {
+    background-color: #1b4f72;
+  }
+  section.tool pre.result {
+    margin-top: 1.4rem;
+    background: #1a1a1a;
+    color: #eee;
+    padding: 1.2rem 1.3rem;
+    border-radius: 12px;
+    min-height: 120px;
     white-space: pre-wrap;
-    min-height: 80px;
-    margin-top: 0.5rem;
-    box-shadow: inset 0 0 8px #1a272a;
+    font-family: monospace;
+    box-shadow: inset 0 0 10px #000;
+    user-select: text;
+    line-height: 1.4;
+    font-size: 1rem;
   }
-  /* Resultado crítico para aviso */
-  .critico-msg {
-    color: #ff5555;
-    font-weight: 700;
-    margin-top: 0.3rem;
-    font-size: 0.9rem;
-  }
+
   /* Responsive */
   @media (max-width: 480px) {
     #app {
-      padding: 1rem;
-      margin: 5rem auto 2rem auto;
+      padding: 3rem 1rem 2rem 1rem;
     }
-    header h1 {
-      font-size: 1.6rem;
+    section.tool h3 {
+      font-size: 1.5rem;
     }
   }
 </style>
 </head>
 <body>
 
-<!-- Barra de alerta crítica -->
-<div id="alertaCritica" role="alert" aria-live="assertive" aria-atomic="true">
-  ⚠️ ATENCIÓN: Algunas herramientas están presentando fallos graves y están en estado CRÍTICO. Proceda con precaución.
+<div id="topMessage" aria-live="polite" role="alert">
+  Nosotros estamos implementando herramientas nuevas y avanzadas con el pasar del tiempo se darán cuenta. Att Táctico Angel Owner 
 </div>
 
-<div id="app" role="main" aria-label="Centro OSINT Militar Avanzado">
+<div id="app" role="main" aria-label="Herramientas OSINT">
 
-  <header>
-    <h1>Centro OSINT Militar Avanzado</h1>
-  </header>
+  <!-- Verificar Número Telefónico -->
+  <section class="tool" aria-label="Verificar número telefónico">
+    <h3>Verificar Número Telefónico</h3>
+    <label for="phoneInput">Número con código país (ej: +18493533042)</label>
+    <input type="text" id="phoneInput" placeholder="+18493533042" autocomplete="tel" />
+    <button id="btnVerifyPhone">Verificar</button>
+    <pre id="phoneResult" class="result" aria-live="polite" aria-atomic="true">Ingrese un número y pulse Verificar.</pre>
+  </section>
 
-  <div class="tools-grid">
+  <!-- Verificar Email -->
+  <section class="tool" aria-label="Verificar email">
+    <h3>Verificar Email</h3>
+    <label for="emailInput">Correo electrónico (ej: ejemplo@mail.com)</label>
+    <input type="email" id="emailInput" placeholder="ejemplo@mail.com" autocomplete="email" />
+    <button id="btnVerifyEmail">Verificar</button>
+    <pre id="emailResult" class="result" aria-live="polite" aria-atomic="true">Ingrese un email y pulse Verificar.</pre>
+  </section>
 
-    <!-- 1. Validar Número Telefónico (funciona) -->
-    <div class="tool-card">
-      <h2>1. Validar Número Telefónico</h2>
-      <label for="inputNumero">Número con código país (ej: +393512697383):</label>
-      <input type="text" id="inputNumero" placeholder="+393512697383" aria-describedby="resultadoNumero" />
-      <button id="btnValidarNumero" aria-live="polite">Buscar número</button>
-      <pre class="tool-result" id="resultadoNumero" role="region" aria-live="polite" aria-atomic="true">Aquí aparecerá la información.</pre>
-    </div>
+  <!-- Análisis URL -->
+  <section class="tool" aria-label="Análisis básico de URL">
+    <h3>Análisis básico de URL</h3>
+    <label for="urlInput">URL para analizar (ej: https://ejemplo.com)</label>
+    <input type="url" id="urlInput" placeholder="https://ejemplo.com" autocomplete="url" />
+    <button id="btnAnalyzeUrl">Analizar</button>
+    <pre id="urlResult" class="result" aria-live="polite" aria-atomic="true">Ingrese una URL y pulse Analizar.</pre>
+  </section>
 
-    <!-- 2. Geolocalizar IP (CRÍTICO) -->
-    <div class="tool-card">
-      <h2>2. Geolocalizar IP <span class="critico">CRÍTICO</span></h2>
-      <label for="inputIP">Dirección IP (ej: 8.8.8.8):</label>
-      <input type="text" id="inputIP" placeholder="8.8.8.8" aria-describedby="resultadoIP" disabled />
-      <button id="btnBuscarIP" disabled>Buscar IP</button>
-      <pre class="tool-result" id="resultadoIP" role="region" aria-live="polite" aria-atomic="true">Error crítico: herramienta no disponible temporalmente.</pre>
-    </div>
-
-    <!-- 3. Verificar Email (funciona) -->
-    <div class="tool-card">
-      <h2>3. Verificar Email</h2>
-      <label for="inputEmail">Correo electrónico:</label>
-      <input type="email" id="inputEmail" placeholder="ejemplo@mail.com" aria-describedby="resultadoEmail" />
-      <button id="btnVerificarEmail" aria-live="polite">Verificar Email</button>
-      <div class="tool-result" id="resultadoEmail" role="region" aria-live="polite" aria-atomic="true">Aquí aparecerá info del email.</div>
-    </div>
-
-    <!-- 4. Buscar Usuario en Redes Sociales (CRÍTICO) -->
-    <div class="tool-card">
-      <h2>4. Buscar Usuario en Redes Sociales <span class="critico">CRÍTICO</span></h2>
-      <label for="inputUsuario">Nombre usuario (ej: angel_dev):</label>
-      <input type="text" id="inputUsuario" placeholder="angel_dev" aria-describedby="resultadoUsuario" disabled />
-      <button id="btnBuscarUsuario" disabled>Buscar Usuario</button>
-      <pre class="tool-result" id="resultadoUsuario" role="region" aria-live="polite" aria-atomic="true">Error crítico: herramienta no disponible temporalmente.</pre>
-    </div>
-
-    <!-- 5. Análisis básico URL (funciona) -->
-    <div class="tool-card">
-      <h2>5. Análisis básico URL</h2>
-      <label for="inputURL">URL para analizar:</label>
-      <input type="url" id="inputURL" placeholder="https://ejemplo.com" aria-describedby="resultadoURL" />
-      <button id="btnAnalizarURL" aria-live="polite">Analizar URL</button>
-      <pre class="tool-result" id="resultadoURL" role="region" aria-live="polite" aria-atomic="true">Aquí se mostrará el análisis.</pre>
-    </div>
-
-    <!-- 6. WHOIS Simplificado (funciona con aviso) -->
-    <div class="tool-card">
-      <h2>6. WHOIS Simplificado</h2>
-      <label for="inputDominio">Dominio (ej: ejemplo.com):</label>
-      <input type="text" id="inputDominio" placeholder="ejemplo.com" aria-describedby="resultadoWhois" />
-      <button id="btnWhois" aria-live="polite">Consultar WHOIS</button>
-      <pre class="tool-result" id="resultadoWhois" role="region" aria-live="polite" aria-atomic="true">Consulta WHOIS requiere backend o API propia.</pre>
-    </div>
-
-    <!-- 7. Extraer Metadatos EXIF de Imagen (funciona) -->
-    <div class="tool-card">
-      <h2>7. Extraer Metadatos EXIF de Imagen</h2>
-      <label for="inputImagen">Sube una imagen para extraer metadatos:</label>
-      <input type="file" id="inputImagen" accept="image/*" aria-describedby="resultadoExif" />
-      <button id="btnExtraerExif" aria-live="polite">Extraer EXIF</button>
-      <pre class="tool-result" id="resultadoExif" role="region" aria-live="polite" aria-atomic="true">Aquí aparecerán los metadatos EXIF.</pre>
-    </div>
-
-  </div>
+  <!-- Extraer Metadatos EXIF -->
+  <section class="tool" aria-label="Extraer metadatos EXIF de imagen">
+    <h3>Extraer Metadatos EXIF</h3>
+    <label for="exifInput">Sube una imagen para analizar</label>
+    <input type="file" id="exifInput" accept="image/*" />
+    <button id="btnExtractExif">Extraer</button>
+    <pre id="exifResult" class="result" aria-live="polite" aria-atomic="true">Sube una imagen y pulsa Extraer.</pre>
+  </section>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <script>
-  // Validar Número Telefónico (simple simulación)
-  document.getElementById('btnValidarNumero').addEventListener('click', () => {
-    const num = document.getElementById('inputNumero').value.trim();
-    const res = document.getElementById('resultadoNumero');
-    if (!/^\+\d{6,15}$/.test(num)) {
-      res.textContent = 'Número inválido. Debe empezar con + y tener entre 6 y 15 dígitos.';
+  // API key para número telefónico (apilayer)
+  const apiKey = '6jV4zlZ7VzIcQmvA5vq8cRJQJmFZYXKj';
+
+  // Verificar número telefónico
+  const phoneInput = document.getElementById('phoneInput');
+  const btnVerifyPhone = document.getElementById('btnVerifyPhone');
+  const phoneResult = document.getElementById('phoneResult');
+
+  btnVerifyPhone.addEventListener('click', () => {
+    const num = phoneInput.value.trim();
+    if (!num.match(/^\+\d{6,15}$/)) {
+      phoneResult.textContent = 'Número inválido. Debe empezar con + y tener entre 6 y 15 dígitos.';
       return;
     }
-    res.textContent = 'Buscando número...';
-    setTimeout(() => {
-      res.textContent = `Número: ${num}\nPaís: Ejemplo País\nOperador: Ejemplo Operador\nEstado: Funcionando`;
-    }, 1500);
+    phoneResult.textContent = 'Buscando información...';
+    fetch(`https://api.apilayer.com/number_verification/validate?number=${encodeURIComponent(num)}`, {
+      method: 'GET',
+      headers: { apikey: apiKey }
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (!data.valid) {
+          phoneResult.textContent = 'Número inválido o no existente.';
+          return;
+        }
+        phoneResult.textContent =
+          `✅ Número: ${data.number_international}
+🌍 País: ${data.country_name} (${data.country_code})
+📞 Local: ${data.number_local}
+📡 Operador: ${data.carrier || 'No disponible'}
+📱 Tipo: ${data.line_type || 'No disponible'}`;
+      })
+      .catch(() => {
+        phoneResult.textContent = 'Error en la consulta. Intenta más tarde.';
+      });
   });
 
   // Verificar Email (solo formato)
-  document.getElementById('btnVerificarEmail').addEventListener('click', () => {
-    const email = document.getElementById('inputEmail').value.trim();
-    const res = document.getElementById('resultadoEmail');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      res.textContent = 'Email con formato inválido.';
+  const emailInput = document.getElementById('emailInput');
+  const btnVerifyEmail = document.getElementById('btnVerifyEmail');
+  const emailResult = document.getElementById('emailResult');
+
+  btnVerifyEmail.addEventListener('click', () => {
+    const email = emailInput.value.trim();
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regexEmail.test(email)) {
+      emailResult.textContent = 'Email con formato inválido.';
       return;
     }
-    res.innerHTML = `Email válido.<br>Para verificar brechas, consulta <a href="https://haveibeenpwned.com/" target="_blank" rel="noopener" style="color:#3ddc97;">Have I Been Pwned</a>.`;
+    emailResult.innerHTML = `Email válido.<br>Para verificar brechas visita <a href="https://haveibeenpwned.com/" target="_blank" style="color:#2e86de;">Have I Been Pwned</a>.`;
   });
 
-  // Analizar URL local
-  document.getElementById('btnAnalizarURL').addEventListener('click', () => {
-    const urlStr = document.getElementById('inputURL').value.trim();
-    const res = document.getElementById('resultadoURL');
+  // Análisis básico de URL
+  const urlInput = document.getElementById('urlInput');
+  const btnAnalyzeUrl = document.getElementById('btnAnalyzeUrl');
+  const urlResult = document.getElementById('urlResult');
+
+  btnAnalyzeUrl.addEventListener('click', () => {
+    const urlStr = urlInput.value.trim();
     if (!urlStr) {
-      res.textContent = 'Introduce una URL válida.';
+      urlResult.textContent = 'Introduce una URL válida.';
       return;
     }
     try {
       const url = new URL(urlStr);
-      let info = `URL: ${url.href}\n`;
-      info += `Protocolo: ${url.protocol}\n`;
-      info += `Host: ${url.host}\n`;
-      info += `Dominio: ${url.hostname}\n`;
-      info += `Puerto: ${url.port || '(default)'}\n`;
-      info += `Ruta: ${url.pathname}\n`;
-      info += `Parámetros: ${url.search || 'Ninguno'}\n`;
-      info += `Hash: ${url.hash || 'Ninguno'}\n`;
-      info += `HTTPS: ${url.protocol === 'https:' ? 'Sí' : 'No'}\n`;
-      res.textContent = info;
+      let output =
+        `🔗 URL: ${url.href}
+🌐 Protocolo: ${url.protocol}
+🏠 Host: ${url.host}
+📛 Dominio: ${url.hostname}
+📫 Puerto: ${url.port || '(default)'}
+📂 Ruta: ${url.pathname}
+🔎 Parámetros: ${url.search || 'Ninguno'}
+🔗 Hash: ${url.hash || 'Ninguno'}
+🔐 HTTPS: ${url.protocol === 'https:' ? 'Sí' : 'No'}`;
+      urlResult.textContent = output;
     } catch {
-      res.textContent = 'URL no válida.';
+      urlResult.textContent = 'URL no válida.';
     }
   });
 
-  // WHOIS aviso
-  document.getElementById('btnWhois').addEventListener('click', () => {
-    const domain = document.getElementById('inputDominio').value.trim();
-    const res = document.getElementById('resultadoWhois');
-    if (!domain) {
-      res.textContent = 'Introduce un dominio válido.';
-      return;
-    }
-    res.textContent = 'Consulta WHOIS requiere backend o API propia.';
-  });
+  // Extraer EXIF
+  const exifInput = document.getElementById('exifInput');
+  const btnExtractExif = document.getElementById('btnExtractExif');
+  const exifResult = document.getElementById('exifResult');
 
-  // Extraer metadatos EXIF
-  document.getElementById('btnExtraerExif').addEventListener('click', () => {
-    const fileInput = document.getElementById('inputImagen');
-    const res = document.getElementById('resultadoExif');
-    const file = fileInput.files[0];
+  btnExtractExif.addEventListener('click', () => {
+    const file = exifInput.files[0];
     if (!file) {
-      res.textContent = 'Debes subir una imagen primero.';
+      exifResult.textContent = 'Sube una imagen primero.';
       return;
     }
-    res.textContent = 'Extrayendo metadatos EXIF...';
-    EXIF.getData(file, function() {
+    exifResult.textContent = 'Extrayendo metadatos EXIF...';
+    EXIF.getData(file, function () {
       const allMetaData = EXIF.getAllTags(this);
       if (Object.keys(allMetaData).length === 0) {
-        res.textContent = 'No se encontraron metadatos EXIF.';
+        exifResult.textContent = 'No se encontraron metadatos EXIF.';
         return;
       }
       let output = '';
       for (const tag in allMetaData) {
         output += `${tag}: ${allMetaData[tag]}\n`;
       }
-      res.textContent = output;
+      exifResult.textContent = output;
     });
   });
 </script>
