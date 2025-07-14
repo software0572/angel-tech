@@ -1,112 +1,225 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>⚙️ Mantenimiento en Proceso</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro OSINT DEMO</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', Arial, sans-serif; }
+    body { background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%); color: #2d3748; min-height: 100vh; display: flex; justify-content: center; padding: 20px; }
+    #app { background: #fff; border-radius: 10px; max-width: 800px; width: 100%; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    header { text-align: center; margin-bottom: 1.5rem; }
+    header h1 { color: #2b6cb0; font-size: 1.8rem; font-weight: 700; letter-spacing: 0.5px; }
+    section { margin-bottom: 1.5rem; }
+    h2 { color: #2b6cb0; font-size: 1.2rem; font-weight: 600; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; margin-bottom: 0.8rem; }
+    label { font-weight: 500; margin-bottom: 5px; display: block; color: #4a5568; }
+    input[type="text"], input[type="url"], input[type="email"], input[type="file"] {
+      width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      padding: 20px;
-      overflow: hidden;
-    }
-
-    .container {
-      animation: fadeIn 2s ease-in-out;
-      max-width: 700px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 40px;
-      border-radius: 20px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-      animation: floatText 3s ease-in-out infinite;
-    }
-
-    p {
-      font-size: 1.2em;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-
-    .loader {
-      border: 8px solid rgba(255,255,255,0.2);
-      border-top: 8px solid #00ffcc;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      margin: 0 auto;
-      animation: spin 1.2s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(50px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes floatText {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 0.9em;
-      opacity: 0.7;
-    }
-
-    .notice {
-      font-style: italic;
-      color: #00ffaa;
-      font-size: 1em;
-      margin-top: 10px;
-      animation: fadeIn 3s ease-in-out;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2em; }
-      p { font-size: 1em; }
-      .container { padding: 25px; }
-    }
+    input:focus { outline: none; border-color: #2b6cb0; box-shadow: 0 0 6px rgba(43,108,176,0.3); }
+    button { background: #2b6cb0; color: #fff; border: none; padding: 8px; width: 100%; font-size: 0.9rem; font-weight: 600; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease; }
+    button:hover { background: #2c5282; }
+    .spinner { border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; margin-left: 6px; display: none; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .resultado { background: #f7fafc; padding: 0.8rem; border-radius: 6px; font-family: monospace; min-height: 50px; margin-top: 0.5rem; border: 1px solid #e2e8f0; white-space: pre-wrap; }
+    .flex-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .flex-item { flex: 1 1 240px; }
+    footer { text-align: center; margin-top: 1.5rem; color: #718096; font-size: 0.8rem; }
+    .scroll { max-height: 100px; overflow-y: auto; }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>⚙️ Página en Mantenimiento</h1>
-    <div class="loader"></div>
-    <p>Estamos trabajando arduamente para mejorar la experiencia y optimizar todos los sistemas. Este mantenimiento es parte de una actualización mayor que traerá nuevas herramientas, mayor seguridad, y un rendimiento mucho más fluido.</p>
-    <p>Sabemos que el tiempo es valioso. Nuestro equipo técnico —compuesto por una sola persona con máxima experiencia— está ejecutando procedimientos de actualización avanzados.</p>
-    <div class="notice">⚠️ Recuerden que el único técnico, desarrollador y responsable de este sistema soy yo: <strong>Ángel</strong>. Todo está bajo control.</div>
-    <p>Gracias por tu paciencia. Esta página volverá más fuerte, más rápida y con muchas novedades.</p>
-    <footer>— Centro de Desarrollo Tecnológico • Ángel</footer>
+  <div id="app">
+    <header><h1>Centro OSINT DEMO</h1></header>
+    <section>
+      <h2>1. Validar Número</h2>
+      <form onsubmit="validarNumero(event)">
+        <label for="inputNumero">Número (ej: +393512697383):</label>
+        <input type="text" id="inputNumero" placeholder="+123456" required>
+        <button type="submit">Buscar <span class="spinner" id="spinnerNumero"></span></button>
+      </form>
+      <div class="resultado" id="resultadoNumero">Resultados...</div>
+    </section>
+    <section class="flex-row">
+      <div class="flex-item">
+        <h2>2. Geolocalizar IP</h2>
+        <form onsubmit="geolocalizarIP(event)">
+          <label for="inputIP">IP (ej: 8.8.8.8):</label>
+          <input type="text" id="inputIP" placeholder="8.8.8.8" required>
+          <button type="submit">Buscar <span class="spinner" id="spinnerIP"></span></button>
+        </form>
+        <div class="resultado" id="resultadoIP">Resultados...</div>
+      </div>
+      <div class="flex-item">
+        <h2>3. Verificar Email</h2>
+        <form onsubmit="verificarEmail(event)">
+          <label for="inputEmail">Email:</label>
+          <input type="email" id="inputEmail" placeholder="ejemplo@mail.com" required>
+          <button type="submit">Verificar <span class="spinner" id="spinnerEmail"></span></button>
+        </form>
+        <div class="resultado" id="resultadoEmail">Resultados...</div>
+      </div>
+    </section>
+    <section>
+      <h2>4. Buscar Usuario</h2>
+      <form onsubmit="buscarUsuario(event)">
+        <label for="inputUsuario">Usuario (ej: angel_dev):</label>
+        <input type="text" id="inputUsuario" placeholder="angel_dev" required>
+        <button type="submit">Buscar <span class="spinner" id="spinnerUsuario"></span></button>
+      </form>
+      <div class="resultado scroll" id="resultadoUsuario">Resultados...</div>
+    </section>
+    <section>
+      <h2>5. Analizar URL</h2>
+      <form onsubmit="analizarURL(event)">
+        <label for="inputURL">URL:</label>
+        <input type="url" id="inputURL" placeholder="https://ejemplo.com" required>
+        <button type="submit">Analizar <span class="spinner" id="spinnerURL"></span></button>
+      </form>
+      <div class="resultado" id="resultadoURL">Resultados...</div>
+    </section>
+    <section>
+      <h2>6. Consultar WHOIS</h2>
+      <form onsubmit="consultarWhois(event)">
+        <label for="inputDominio">Dominio (ej: ejemplo.com):</label>
+        <input type="text" id="inputDominio" placeholder="ejemplo.com" required>
+        <button type="submit">Consultar <span class="spinner" id="spinnerWhois"></span></button>
+      </form>
+      <div class="resultado scroll" id="resultadoWhois">Resultados...</div>
+    </section>
+    <section>
+      <h2>7. Extraer EXIF</h2>
+      <form onsubmit="extraerExif(event)">
+        <label for="inputImagen">Subir imagen:</label>
+        <input type="file" id="inputImagen" accept="image/*">
+        <button type="submit">Extraer <span class="spinner" id="spinnerExif"></span></button>
+      </form>
+      <div class="resultado scroll" id="resultadoExif">Resultados...</div>
+    </section>
+    <footer>© 2025 José Angel Rivas Sánchez</footer>
   </div>
-
-  <!-- Audio de fondo relajante -->
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_96ed6e6c37.mp3?filename=soft-piano-ambient-10762.mp3" type="audio/mp3">
-    Tu navegador no soporta audio HTML5.
-  </audio>
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <script>
+    function toggleSpinner(id, show) {
+      document.getElementById(id).style.display = show ? 'inline-block' : 'none';
+    }
+    async function validarNumero(e) {
+      e.preventDefault();
+      toggleSpinner('spinnerNumero', true);
+      const num = document.getElementById('inputNumero').value.trim();
+      const res = document.getElementById('resultadoNumero');
+      if (!/^\+\d{10,15}$/.test(num)) {
+        res.textContent = 'Formato inválido. Usa + y 10-15 dígitos.';
+        toggleSpinner('spinnerNumero', false);
+        return;
+      }
+      res.textContent = 'Buscando...';
+      try {
+        const response = await fetch(`https://tu-servidor.onrender.com/validar-numero?numero=${encodeURIComponent(num)}`);
+        const data = await response.json();
+        res.textContent = data.valid ? `Número: ${data.number}\nPaís: ${data.country_name}\nOperador: ${data.carrier || 'N/A'}\nTipo: ${data.line_type || 'N/A'}` : 'Número no encontrado.';
+      } catch {
+        res.textContent = 'Error al buscar.';
+      }
+      toggleSpinner('spinnerNumero', false);
+    }
+    async function geolocalizarIP(e) {
+      e.preventDefault();
+      toggleSpinner('spinnerIP', true);
+      const ip = document.getElementById('inputIP').value.trim();
+      const res = document.getElementById('resultadoIP');
+      if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(ip) || /^(192\.168|10\.|172\.(1[6-9]|2[0-9]|3[0-1]))/.test(ip)) {
+        res.textContent = 'IP inválida. Ej: 8.8.8.8';
+        toggleSpinner('spinnerIP', false);
+        return;
+      }
+      res.textContent = 'Buscando...';
+      try {
+        const response = await fetch(`https://ipapi.co/${ip}/json/`);
+        const data = await response.json();
+        res.textContent = data.error ? 'IP no encontrada.' : `IP: ${data.ip}\nCiudad: ${data.city || 'N/A'}\nPaís: ${data.country_name || 'N/A'}\nISP: ${data.org || 'N/A'}`;
+      } catch {
+        res.textContent = 'Error al buscar.';
+      }
+      toggleSpinner('spinnerIP', false);
+    }
+    function verificarEmail(e) {
+      e.preventDefault();
+      toggleSpinner('spinnerEmail', true);
+      const email = document.getElementById('inputEmail').value.trim();
+      const res = document.getElementById('resultadoEmail');
+      res.textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Email válido.' : 'Email inválido.';
+      toggleSpinner('spinnerEmail', false);
+    }
+    function buscarUsuario(e) {
+      e.preventDefault();
+      toggleSpinner('spinnerUsuario', true);
+      const user = document.getElementById('inputUsuario').value.trim();
+      const res = document.getElementById('resultadoUsuario');
+      if (!user) {
+        res.textContent = 'Usuario inválido.';
+        toggleSpinner('spinnerUsuario', false);
+        return;
+      }
+      const sites = [
+        {name: 'Twitter', url: `https://twitter.com/${user}`},
+        {name: 'Instagram', url: `https://www.instagram.com/${user}`},
+        {name: 'GitHub', url: `https://github.com/${user}`},
+      ];
+      res.innerHTML = sites.map(s => `<p><a href="${s.url}" target="_blank" style="color:#2b6cb0;">${s.name}</a></p>`).join('');
+      toggleSpinner('spinnerUsuario', false);
+    }
+    function analizarURL(e) {
+      e.preventDefault();
+      toggleSpinner('spinnerURL', true);
+      const urlStr = document.getElementById('inputURL').value.trim();
+      const res = document.getElementById('resultadoURL');
+      try {
+        const url = new URL(urlStr);
+        res.textContent = `URL: ${url.href}\nProtocolo: ${url.protocol}\nDominio: ${url.hostname}\nHTTPS: ${url.protocol === 'https:' ? 'Sí' : 'No'}`;
+      } catch {
+        res.textContent = 'URL inválida.';
+      }
+      toggleSpinner('spinnerURL', false);
+    }
+    async function consultarWhois(e) {
+      e.preventDefault();
+      toggleSpinner('spinnerWhois', true);
+      const domain = document.getElementById('inputDominio').value.trim();
+      const res = document.getElementById('resultadoWhois');
+      if (!domain.match(/^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/)) {
+        res.textContent = 'Dominio inválido. Ej: ejemplo.com';
+        toggleSpinner('spinnerWhois', false);
+        return;
+      }
+      res.textContent = 'Buscando...';
+      try {
+        const response = await fetch(`https://tu-servidor.onrender.com/whois?domain=${encodeURIComponent(domain)}`);
+        const data = await response.json();
+        res.textContent = data.WhoisRecord ? `Dominio: ${data.WhoisRecord.domainName}\nRegistrador: ${data.WhoisRecord.registrarName || 'N/A'}\nCreado: ${data.WhoisRecord.createdDate || 'N/A'}` : 'No se encontraron datos.';
+      } catch {
+        res.textContent = 'Error al buscar.';
+      }
+      toggleSpinner('spinnerWhois', false);
+    }
+    function extraerExif(e) {
+      e.preventDefault();
+      toggleSpinner('spinnerExif', true);
+      const file = document.getElementById('inputImagen').files[0];
+      const res = document.getElementById('resultadoExif');
+      if (!file) {
+        res.textContent = 'Sube una imagen.';
+        toggleSpinner('spinnerExif', false);
+        return;
+      }
+      res.textContent = 'Procesando...';
+      EXIF.getData(file, function() {
+        const tags = EXIF.getAllTags(this);
+        res.textContent = Object.keys(tags).length ? Object.entries(tags).map(([k, v]) => `${k}: ${v}`).join('\n') : 'Sin metadatos EXIF.';
+        toggleSpinner('spinnerExif', false);
+      });
+    }
+  </script>
 </body>
 </html>
