@@ -1,0 +1,18 @@
+.resultado {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.resultado.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+button {
+  will-change: background-color, box-shadow;
+}
+
+input:focus {
+  will-change: background-color, color;
+}
