@@ -1,225 +1,332 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Centro OSINT DEMO</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', Arial, sans-serif; }
-    body { background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%); color: #2d3748; min-height: 100vh; display: flex; justify-content: center; padding: 20px; }
-    #app { background: #fff; border-radius: 10px; max-width: 800px; width: 100%; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-    header { text-align: center; margin-bottom: 1.5rem; }
-    header h1 { color: #2b6cb0; font-size: 1.8rem; font-weight: 700; letter-spacing: 0.5px; }
-    section { margin-bottom: 1.5rem; }
-    h2 { color: #2b6cb0; font-size: 1.2rem; font-weight: 600; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; margin-bottom: 0.8rem; }
-    label { font-weight: 500; margin-bottom: 5px; display: block; color: #4a5568; }
-    input[type="text"], input[type="url"], input[type="email"], input[type="file"] {
-      width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; transition: border-color 0.3s ease, box-shadow 0.3s ease;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Centro OSINT Militar Avanzado - Estado Crítico</title>
+<style>
+  /* Reset */
+  * {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body, html {
+    height: 100%;
+    background: linear-gradient(135deg, #0b1a25, #112c3c);
+    color: #eee;
+  }
+  /* Barra crítica arriba */
+  #alertaCritica {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #ff3333;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
+    z-index: 10000;
+    box-shadow: 0 3px 10px #ff3333cc;
+    animation: pulseAlert 2.5s ease-in-out infinite;
+    letter-spacing: 1.5px;
+  }
+  @keyframes pulseAlert {
+    0%, 100% { background-color: #ff3333; }
+    50% { background-color: #ff5555; }
+  }
+
+  /* Contenedor principal */
+  #app {
+    max-width: 960px;
+    margin: 4rem auto 2rem auto; /* margen superior para dejar espacio a alerta */
+    padding: 1rem 2rem 3rem 2rem;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  header h1 {
+    font-size: 2rem;
+    color: #3ddc97;
+    text-shadow: 0 0 8px #3ddc97bb;
+    letter-spacing: 3px;
+    font-weight: 900;
+  }
+  /* Grid herramientas */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 1.5rem;
+  }
+  .tool-card {
+    background: #1c2b33;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 0 15px #0f3e45;
+    color: #cfd8dc;
+    display: flex;
+    flex-direction: column;
+  }
+  .tool-card h2 {
+    color: #3ddc97;
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tool-card h2 .critico {
+    background: #ff4444;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 0 5px #ff4444cc;
+    user-select: none;
+  }
+  .tool-card label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .tool-card input[type="text"],
+  .tool-card input[type="email"],
+  .tool-card input[type="url"] {
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    border: none;
+    background: #274044;
+    color: #cfd8dc;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  .tool-card input[type="text"]:focus,
+  .tool-card input[type="email"]:focus,
+  .tool-card input[type="url"]:focus {
+    background-color: #3ddc97;
+    color: #121b1f;
+    font-weight: 700;
+    outline: none;
+  }
+  .tool-card button {
+    background-color: #3ddc97;
+    color: #121b1f;
+    border: none;
+    padding: 10px 0;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #3ddc97aa;
+    transition: background-color 0.3s ease;
+  }
+  .tool-card button:hover:not(:disabled) {
+    background-color: #29b774;
+  }
+  .tool-card button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    box-shadow: none;
+    color: #888;
+  }
+  .tool-result {
+    background: #253a3f;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    min-height: 80px;
+    margin-top: 0.5rem;
+    box-shadow: inset 0 0 8px #1a272a;
+  }
+  /* Resultado crítico para aviso */
+  .critico-msg {
+    color: #ff5555;
+    font-weight: 700;
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+  }
+  /* Responsive */
+  @media (max-width: 480px) {
+    #app {
+      padding: 1rem;
+      margin: 5rem auto 2rem auto;
     }
-    input:focus { outline: none; border-color: #2b6cb0; box-shadow: 0 0 6px rgba(43,108,176,0.3); }
-    button { background: #2b6cb0; color: #fff; border: none; padding: 8px; width: 100%; font-size: 0.9rem; font-weight: 600; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease; }
-    button:hover { background: #2c5282; }
-    .spinner { border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; width: 14px; height: 14px; animation: spin 1s linear infinite; margin-left: 6px; display: none; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .resultado { background: #f7fafc; padding: 0.8rem; border-radius: 6px; font-family: monospace; min-height: 50px; margin-top: 0.5rem; border: 1px solid #e2e8f0; white-space: pre-wrap; }
-    .flex-row { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .flex-item { flex: 1 1 240px; }
-    footer { text-align: center; margin-top: 1.5rem; color: #718096; font-size: 0.8rem; }
-    .scroll { max-height: 100px; overflow-y: auto; }
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-  </style>
+    header h1 {
+      font-size: 1.6rem;
+    }
+  }
+</style>
 </head>
 <body>
-  <div id="app">
-    <header><h1>Centro OSINT DEMO</h1></header>
-    <section>
-      <h2>1. Validar Número</h2>
-      <form onsubmit="validarNumero(event)">
-        <label for="inputNumero">Número (ej: +393512697383):</label>
-        <input type="text" id="inputNumero" placeholder="+123456" required>
-        <button type="submit">Buscar <span class="spinner" id="spinnerNumero"></span></button>
-      </form>
-      <div class="resultado" id="resultadoNumero">Resultados...</div>
-    </section>
-    <section class="flex-row">
-      <div class="flex-item">
-        <h2>2. Geolocalizar IP</h2>
-        <form onsubmit="geolocalizarIP(event)">
-          <label for="inputIP">IP (ej: 8.8.8.8):</label>
-          <input type="text" id="inputIP" placeholder="8.8.8.8" required>
-          <button type="submit">Buscar <span class="spinner" id="spinnerIP"></span></button>
-        </form>
-        <div class="resultado" id="resultadoIP">Resultados...</div>
-      </div>
-      <div class="flex-item">
-        <h2>3. Verificar Email</h2>
-        <form onsubmit="verificarEmail(event)">
-          <label for="inputEmail">Email:</label>
-          <input type="email" id="inputEmail" placeholder="ejemplo@mail.com" required>
-          <button type="submit">Verificar <span class="spinner" id="spinnerEmail"></span></button>
-        </form>
-        <div class="resultado" id="resultadoEmail">Resultados...</div>
-      </div>
-    </section>
-    <section>
-      <h2>4. Buscar Usuario</h2>
-      <form onsubmit="buscarUsuario(event)">
-        <label for="inputUsuario">Usuario (ej: angel_dev):</label>
-        <input type="text" id="inputUsuario" placeholder="angel_dev" required>
-        <button type="submit">Buscar <span class="spinner" id="spinnerUsuario"></span></button>
-      </form>
-      <div class="resultado scroll" id="resultadoUsuario">Resultados...</div>
-    </section>
-    <section>
-      <h2>5. Analizar URL</h2>
-      <form onsubmit="analizarURL(event)">
-        <label for="inputURL">URL:</label>
-        <input type="url" id="inputURL" placeholder="https://ejemplo.com" required>
-        <button type="submit">Analizar <span class="spinner" id="spinnerURL"></span></button>
-      </form>
-      <div class="resultado" id="resultadoURL">Resultados...</div>
-    </section>
-    <section>
-      <h2>6. Consultar WHOIS</h2>
-      <form onsubmit="consultarWhois(event)">
-        <label for="inputDominio">Dominio (ej: ejemplo.com):</label>
-        <input type="text" id="inputDominio" placeholder="ejemplo.com" required>
-        <button type="submit">Consultar <span class="spinner" id="spinnerWhois"></span></button>
-      </form>
-      <div class="resultado scroll" id="resultadoWhois">Resultados...</div>
-    </section>
-    <section>
-      <h2>7. Extraer EXIF</h2>
-      <form onsubmit="extraerExif(event)">
-        <label for="inputImagen">Subir imagen:</label>
-        <input type="file" id="inputImagen" accept="image/*">
-        <button type="submit">Extraer <span class="spinner" id="spinnerExif"></span></button>
-      </form>
-      <div class="resultado scroll" id="resultadoExif">Resultados...</div>
-    </section>
-    <footer>© 2025 José Angel Rivas Sánchez</footer>
+
+<!-- Barra de alerta crítica -->
+<div id="alertaCritica" role="alert" aria-live="assertive" aria-atomic="true">
+  ⚠️ ATENCIÓN: Algunas herramientas están presentando fallos graves y están en estado CRÍTICO. Proceda con precaución.
+</div>
+
+<div id="app" role="main" aria-label="Centro OSINT Militar Avanzado">
+
+  <header>
+    <h1>Centro OSINT Militar Avanzado</h1>
+  </header>
+
+  <div class="tools-grid">
+
+    <!-- 1. Validar Número Telefónico (funciona) -->
+    <div class="tool-card">
+      <h2>1. Validar Número Telefónico</h2>
+      <label for="inputNumero">Número con código país (ej: +393512697383):</label>
+      <input type="text" id="inputNumero" placeholder="+393512697383" aria-describedby="resultadoNumero" />
+      <button id="btnValidarNumero" aria-live="polite">Buscar número</button>
+      <pre class="tool-result" id="resultadoNumero" role="region" aria-live="polite" aria-atomic="true">Aquí aparecerá la información.</pre>
+    </div>
+
+    <!-- 2. Geolocalizar IP (CRÍTICO) -->
+    <div class="tool-card">
+      <h2>2. Geolocalizar IP <span class="critico">CRÍTICO</span></h2>
+      <label for="inputIP">Dirección IP (ej: 8.8.8.8):</label>
+      <input type="text" id="inputIP" placeholder="8.8.8.8" aria-describedby="resultadoIP" disabled />
+      <button id="btnBuscarIP" disabled>Buscar IP</button>
+      <pre class="tool-result" id="resultadoIP" role="region" aria-live="polite" aria-atomic="true">Error crítico: herramienta no disponible temporalmente.</pre>
+    </div>
+
+    <!-- 3. Verificar Email (funciona) -->
+    <div class="tool-card">
+      <h2>3. Verificar Email</h2>
+      <label for="inputEmail">Correo electrónico:</label>
+      <input type="email" id="inputEmail" placeholder="ejemplo@mail.com" aria-describedby="resultadoEmail" />
+      <button id="btnVerificarEmail" aria-live="polite">Verificar Email</button>
+      <div class="tool-result" id="resultadoEmail" role="region" aria-live="polite" aria-atomic="true">Aquí aparecerá info del email.</div>
+    </div>
+
+    <!-- 4. Buscar Usuario en Redes Sociales (CRÍTICO) -->
+    <div class="tool-card">
+      <h2>4. Buscar Usuario en Redes Sociales <span class="critico">CRÍTICO</span></h2>
+      <label for="inputUsuario">Nombre usuario (ej: angel_dev):</label>
+      <input type="text" id="inputUsuario" placeholder="angel_dev" aria-describedby="resultadoUsuario" disabled />
+      <button id="btnBuscarUsuario" disabled>Buscar Usuario</button>
+      <pre class="tool-result" id="resultadoUsuario" role="region" aria-live="polite" aria-atomic="true">Error crítico: herramienta no disponible temporalmente.</pre>
+    </div>
+
+    <!-- 5. Análisis básico URL (funciona) -->
+    <div class="tool-card">
+      <h2>5. Análisis básico URL</h2>
+      <label for="inputURL">URL para analizar:</label>
+      <input type="url" id="inputURL" placeholder="https://ejemplo.com" aria-describedby="resultadoURL" />
+      <button id="btnAnalizarURL" aria-live="polite">Analizar URL</button>
+      <pre class="tool-result" id="resultadoURL" role="region" aria-live="polite" aria-atomic="true">Aquí se mostrará el análisis.</pre>
+    </div>
+
+    <!-- 6. WHOIS Simplificado (funciona con aviso) -->
+    <div class="tool-card">
+      <h2>6. WHOIS Simplificado</h2>
+      <label for="inputDominio">Dominio (ej: ejemplo.com):</label>
+      <input type="text" id="inputDominio" placeholder="ejemplo.com" aria-describedby="resultadoWhois" />
+      <button id="btnWhois" aria-live="polite">Consultar WHOIS</button>
+      <pre class="tool-result" id="resultadoWhois" role="region" aria-live="polite" aria-atomic="true">Consulta WHOIS requiere backend o API propia.</pre>
+    </div>
+
+    <!-- 7. Extraer Metadatos EXIF de Imagen (funciona) -->
+    <div class="tool-card">
+      <h2>7. Extraer Metadatos EXIF de Imagen</h2>
+      <label for="inputImagen">Sube una imagen para extraer metadatos:</label>
+      <input type="file" id="inputImagen" accept="image/*" aria-describedby="resultadoExif" />
+      <button id="btnExtraerExif" aria-live="polite">Extraer EXIF</button>
+      <pre class="tool-result" id="resultadoExif" role="region" aria-live="polite" aria-atomic="true">Aquí aparecerán los metadatos EXIF.</pre>
+    </div>
+
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-  <script>
-    function toggleSpinner(id, show) {
-      document.getElementById(id).style.display = show ? 'inline-block' : 'none';
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+<script>
+  // Validar Número Telefónico (simple simulación)
+  document.getElementById('btnValidarNumero').addEventListener('click', () => {
+    const num = document.getElementById('inputNumero').value.trim();
+    const res = document.getElementById('resultadoNumero');
+    if (!/^\+\d{6,15}$/.test(num)) {
+      res.textContent = 'Número inválido. Debe empezar con + y tener entre 6 y 15 dígitos.';
+      return;
     }
-    async function validarNumero(e) {
-      e.preventDefault();
-      toggleSpinner('spinnerNumero', true);
-      const num = document.getElementById('inputNumero').value.trim();
-      const res = document.getElementById('resultadoNumero');
-      if (!/^\+\d{10,15}$/.test(num)) {
-        res.textContent = 'Formato inválido. Usa + y 10-15 dígitos.';
-        toggleSpinner('spinnerNumero', false);
+    res.textContent = 'Buscando número...';
+    setTimeout(() => {
+      res.textContent = `Número: ${num}\nPaís: Ejemplo País\nOperador: Ejemplo Operador\nEstado: Funcionando`;
+    }, 1500);
+  });
+
+  // Verificar Email (solo formato)
+  document.getElementById('btnVerificarEmail').addEventListener('click', () => {
+    const email = document.getElementById('inputEmail').value.trim();
+    const res = document.getElementById('resultadoEmail');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      res.textContent = 'Email con formato inválido.';
+      return;
+    }
+    res.innerHTML = `Email válido.<br>Para verificar brechas, consulta <a href="https://haveibeenpwned.com/" target="_blank" rel="noopener" style="color:#3ddc97;">Have I Been Pwned</a>.`;
+  });
+
+  // Analizar URL local
+  document.getElementById('btnAnalizarURL').addEventListener('click', () => {
+    const urlStr = document.getElementById('inputURL').value.trim();
+    const res = document.getElementById('resultadoURL');
+    if (!urlStr) {
+      res.textContent = 'Introduce una URL válida.';
+      return;
+    }
+    try {
+      const url = new URL(urlStr);
+      let info = `URL: ${url.href}\n`;
+      info += `Protocolo: ${url.protocol}\n`;
+      info += `Host: ${url.host}\n`;
+      info += `Dominio: ${url.hostname}\n`;
+      info += `Puerto: ${url.port || '(default)'}\n`;
+      info += `Ruta: ${url.pathname}\n`;
+      info += `Parámetros: ${url.search || 'Ninguno'}\n`;
+      info += `Hash: ${url.hash || 'Ninguno'}\n`;
+      info += `HTTPS: ${url.protocol === 'https:' ? 'Sí' : 'No'}\n`;
+      res.textContent = info;
+    } catch {
+      res.textContent = 'URL no válida.';
+    }
+  });
+
+  // WHOIS aviso
+  document.getElementById('btnWhois').addEventListener('click', () => {
+    const domain = document.getElementById('inputDominio').value.trim();
+    const res = document.getElementById('resultadoWhois');
+    if (!domain) {
+      res.textContent = 'Introduce un dominio válido.';
+      return;
+    }
+    res.textContent = 'Consulta WHOIS requiere backend o API propia.';
+  });
+
+  // Extraer metadatos EXIF
+  document.getElementById('btnExtraerExif').addEventListener('click', () => {
+    const fileInput = document.getElementById('inputImagen');
+    const res = document.getElementById('resultadoExif');
+    const file = fileInput.files[0];
+    if (!file) {
+      res.textContent = 'Debes subir una imagen primero.';
+      return;
+    }
+    res.textContent = 'Extrayendo metadatos EXIF...';
+    EXIF.getData(file, function() {
+      const allMetaData = EXIF.getAllTags(this);
+      if (Object.keys(allMetaData).length === 0) {
+        res.textContent = 'No se encontraron metadatos EXIF.';
         return;
       }
-      res.textContent = 'Buscando...';
-      try {
-        const response = await fetch(`https://tu-servidor.onrender.com/validar-numero?numero=${encodeURIComponent(num)}`);
-        const data = await response.json();
-        res.textContent = data.valid ? `Número: ${data.number}\nPaís: ${data.country_name}\nOperador: ${data.carrier || 'N/A'}\nTipo: ${data.line_type || 'N/A'}` : 'Número no encontrado.';
-      } catch {
-        res.textContent = 'Error al buscar.';
+      let output = '';
+      for (const tag in allMetaData) {
+        output += `${tag}: ${allMetaData[tag]}\n`;
       }
-      toggleSpinner('spinnerNumero', false);
-    }
-    async function geolocalizarIP(e) {
-      e.preventDefault();
-      toggleSpinner('spinnerIP', true);
-      const ip = document.getElementById('inputIP').value.trim();
-      const res = document.getElementById('resultadoIP');
-      if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(ip) || /^(192\.168|10\.|172\.(1[6-9]|2[0-9]|3[0-1]))/.test(ip)) {
-        res.textContent = 'IP inválida. Ej: 8.8.8.8';
-        toggleSpinner('spinnerIP', false);
-        return;
-      }
-      res.textContent = 'Buscando...';
-      try {
-        const response = await fetch(`https://ipapi.co/${ip}/json/`);
-        const data = await response.json();
-        res.textContent = data.error ? 'IP no encontrada.' : `IP: ${data.ip}\nCiudad: ${data.city || 'N/A'}\nPaís: ${data.country_name || 'N/A'}\nISP: ${data.org || 'N/A'}`;
-      } catch {
-        res.textContent = 'Error al buscar.';
-      }
-      toggleSpinner('spinnerIP', false);
-    }
-    function verificarEmail(e) {
-      e.preventDefault();
-      toggleSpinner('spinnerEmail', true);
-      const email = document.getElementById('inputEmail').value.trim();
-      const res = document.getElementById('resultadoEmail');
-      res.textContent = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Email válido.' : 'Email inválido.';
-      toggleSpinner('spinnerEmail', false);
-    }
-    function buscarUsuario(e) {
-      e.preventDefault();
-      toggleSpinner('spinnerUsuario', true);
-      const user = document.getElementById('inputUsuario').value.trim();
-      const res = document.getElementById('resultadoUsuario');
-      if (!user) {
-        res.textContent = 'Usuario inválido.';
-        toggleSpinner('spinnerUsuario', false);
-        return;
-      }
-      const sites = [
-        {name: 'Twitter', url: `https://twitter.com/${user}`},
-        {name: 'Instagram', url: `https://www.instagram.com/${user}`},
-        {name: 'GitHub', url: `https://github.com/${user}`},
-      ];
-      res.innerHTML = sites.map(s => `<p><a href="${s.url}" target="_blank" style="color:#2b6cb0;">${s.name}</a></p>`).join('');
-      toggleSpinner('spinnerUsuario', false);
-    }
-    function analizarURL(e) {
-      e.preventDefault();
-      toggleSpinner('spinnerURL', true);
-      const urlStr = document.getElementById('inputURL').value.trim();
-      const res = document.getElementById('resultadoURL');
-      try {
-        const url = new URL(urlStr);
-        res.textContent = `URL: ${url.href}\nProtocolo: ${url.protocol}\nDominio: ${url.hostname}\nHTTPS: ${url.protocol === 'https:' ? 'Sí' : 'No'}`;
-      } catch {
-        res.textContent = 'URL inválida.';
-      }
-      toggleSpinner('spinnerURL', false);
-    }
-    async function consultarWhois(e) {
-      e.preventDefault();
-      toggleSpinner('spinnerWhois', true);
-      const domain = document.getElementById('inputDominio').value.trim();
-      const res = document.getElementById('resultadoWhois');
-      if (!domain.match(/^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/)) {
-        res.textContent = 'Dominio inválido. Ej: ejemplo.com';
-        toggleSpinner('spinnerWhois', false);
-        return;
-      }
-      res.textContent = 'Buscando...';
-      try {
-        const response = await fetch(`https://tu-servidor.onrender.com/whois?domain=${encodeURIComponent(domain)}`);
-        const data = await response.json();
-        res.textContent = data.WhoisRecord ? `Dominio: ${data.WhoisRecord.domainName}\nRegistrador: ${data.WhoisRecord.registrarName || 'N/A'}\nCreado: ${data.WhoisRecord.createdDate || 'N/A'}` : 'No se encontraron datos.';
-      } catch {
-        res.textContent = 'Error al buscar.';
-      }
-      toggleSpinner('spinnerWhois', false);
-    }
-    function extraerExif(e) {
-      e.preventDefault();
-      toggleSpinner('spinnerExif', true);
-      const file = document.getElementById('inputImagen').files[0];
-      const res = document.getElementById('resultadoExif');
-      if (!file) {
-        res.textContent = 'Sube una imagen.';
-        toggleSpinner('spinnerExif', false);
-        return;
-      }
-      res.textContent = 'Procesando...';
-      EXIF.getData(file, function() {
-        const tags = EXIF.getAllTags(this);
-        res.textContent = Object.keys(tags).length ? Object.entries(tags).map(([k, v]) => `${k}: ${v}`).join('\n') : 'Sin metadatos EXIF.';
-        toggleSpinner('spinnerExif', false);
-      });
-    }
-  </script>
+      res.textContent = output;
+    });
+  });
+</script>
+
 </body>
 </html>
