@@ -4,7 +4,7 @@ const app = express();
 app.use((req, res, next) => { res.header('Access-Control-Allow-Origin', '*'); next(); });
 app.get('/validar-numero', async (req, res) => {
   try {
-    const response = await fetch(`https://apilayer.net/api/validate?access_key=TU_CLAVE_NUMVERIFY&number=${encodeURIComponent(req.query.numero)}&format=1`);
+    const response = await fetch(`https://apilayer.net/api/validate?access_key=45e849d4cf5b34b45a3709bfc79f0666NUMVERIFY&number=${encodeURIComponent(req.query.numero)}&format=1`);
     res.json(await response.json());
   } catch {
     res.status(500).json({ error: 'Error' });
