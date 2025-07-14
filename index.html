@@ -1,429 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Centro OSINT Militar Avanzado</title>
-<style>
-  /* Reset */
-  * {
-    box-sizing: border-box;
-    margin: 0; padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  body {
-    background: #121b1f;
-    color: #cfd8dc;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-  #app {
-    background: #1c2b33;
-    border-radius: 12px;
-    max-width: 900px;
-    width: 100%;
-    box-shadow: 0 0 25px #0f3e45;
-    padding: 1.5rem 2rem;
-    display: none; /* Oculto inicialmente para mostrar mensaje */
-  }
-  header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  header h1 {
-    color: #3ddc97;
-    letter-spacing: 3px;
-    font-weight: 900;
-    font-size: 2rem;
-    text-shadow: 0 0 8px #3ddc97aa;
-  }
-  section {
-    margin-bottom: 2rem;
-  }
-  section h2 {
-    border-bottom: 2px solid #3ddc97;
-    padding-bottom: 6px;
-    margin-bottom: 1rem;
-    color: #3ddc97;
-    font-weight: 700;
-    font-size: 1.3rem;
-  }
-  label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-  }
-  input[type="text"], input[type="url"], input[type="email"], input[type="file"] {
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 6px;
-    border: none;
-    font-size: 1rem;
-    background: #274044;
-    color: #cfd8dc;
-    margin-bottom: 12px;
-    transition: background-color 0.3s ease;
-  }
-  input[type="text"]:focus, input[type="url"]:focus, input[type="email"]:focus, input[type="file"]:focus {
-    outline: none;
-    background-color: #3ddc97;
-    color: #121b1f;
-    font-weight: 700;
-  }
-  button {
-    background-color: #3ddc97;
-    color: #121b1f;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #3ddc97aa;
-    transition: background-color 0.3s ease;
-  }
-  button:hover {
-    background-color: #29b774;
-  }
-  .resultado {
-    background: #253a3f;
-    padding: 1rem 1.3rem;
-    border-radius: 10px;
-    font-family: monospace;
-    white-space: pre-wrap;
-    min-height: 80px;
-    margin-top: 0.8rem;
-    box-shadow: inset 0 0 10px #1a272a;
-  }
-  /* Layout para secciones múltiples */
-  .flex-row {
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-  }
-  .flex-item {
-    flex: 1 1 280px;
-  }
-  footer {
-    text-align: center;
-    margin-top: 2rem;
-    color: #4a6a5e;
-    font-size: 0.9rem;
-  }
-  /* Scrollable long results */
-  .resultado-scroll {
-    max-height: 160px;
-    overflow-y: auto;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>En Mantenimiento</title>
+  <style>
+    /* Reset básico */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      margin: 0;
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      color: #58a6ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1rem;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .container {
+      background: #21262d;
+      padding: 2.5rem 3rem;
+      border-radius: 16px;
+      box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.4),
+        0 0 12px 3px rgba(88, 166, 255, 0.7);
+      max-width: 480px;
+      width: 100%;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: #79c0ff;
+      text-shadow: 0 0 8px #58a6ffaa;
+    }
+    p {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: #8b949e;
+      margin-top: 0;
+      font-weight: 600;
+    }
+    .warning-icon {
+      font-size: 3rem;
+      color: #ff6a3d;
+      margin-bottom: 1rem;
+      animation: shake 2.5s infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow:
+          0 4px 6px rgba(0, 0, 0, 0.4),
+          0 0 12px 3px rgba(88, 166, 255, 0.7);
+      }
+      50% {
+        box-shadow:
+          0 6px 10px rgba(0, 0, 0, 0.5),
+          0 0 20px 6px rgba(88, 166, 255, 1);
+      }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
 
-  /* Mensaje de bienvenida restrictiva */
-  #mensajeBienvenidaRestrictiva {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #121b1fdd;
-    color: #cfd8dc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    padding: 20px;
-  }
-  .contenidoMensaje {
-    background: #1c2b33;
-    padding: 2rem 3rem;
-    border-radius: 15px;
-    box-shadow: 0 0 25px #0f3e45;
-    max-width: 400px;
-  }
-  .contenidoMensaje h2 {
-    color: #3ddc97;
-    margin-bottom: 1rem;
-    font-weight: 900;
-    font-size: 1.8rem;
-    text-shadow: 0 0 8px #3ddc97aa;
-  }
-  .contenidoMensaje p {
-    font-size: 1.1rem;
-  }
-</style>
+    /* Responsive */
+    @media (max-width: 500px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .warning-icon {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<!-- Mensaje restrictivo al cargar -->
-<div id="mensajeBienvenidaRestrictiva">
-  <div class="contenidoMensaje">
-    <h2>Acceso Restringido</h2>
-    <p>Solo familiares tienen acceso a esta web para identificar números desconocidos o ver cosas interesantes El creador es Angel</p>
+  <div class="container" role="alert" aria-live="assertive">
+    <div class="warning-icon" aria-hidden="true">⚠️</div>
+    <h1>La web está <span style="color:#ff6a3d;">TOTALMENTE EN MANTENIMIENTO</span></h1>
+    <p>Por favor, regresa más tarde. Gracias por tu paciencia.</p>
   </div>
-</div>
-
-<!-- Contenido principal oculto hasta que se oculte el mensaje -->
-<div id="app">
-  <header>
-    <h1>Centro OSINT Militar Avanzado</h1>
-  </header>
-
-  <section>
-    <h2>1. Validar Número Telefónico</h2>
-    <label for="inputNumero">Número telefónico con código país (ej: +393512697383):</label>
-    <input type="text" id="inputNumero" placeholder="+393512697383" />
-    <button id="btnValidarNumero">Buscar número</button>
-    <div class="resultado" id="resultadoNumero">Aquí aparecerá la información del número.</div>
-  </section>
-
-  <section class="flex-row">
-    <div class="flex-item">
-      <h2>2. Geolocalizar IP</h2>
-      <label for="inputIP">Dirección IP (ej: 8.8.8.8):</label>
-      <input type="text" id="inputIP" placeholder="8.8.8.8" />
-      <button id="btnBuscarIP">Buscar IP</button>
-      <div class="resultado" id="resultadoIP">Aquí aparecerá la info de la IP.</div>
-    </div>
-
-    <div class="flex-item">
-      <h2>3. Verificar Email</h2>
-      <label for="inputEmail">Correo electrónico:</label>
-      <input type="email" id="inputEmail" placeholder="ejemplo@mail.com" />
-      <button id="btnVerificarEmail">Verificar Email</button>
-      <div class="resultado" id="resultadoEmail">Aquí aparecerá info del email.</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>4. Buscar Usuario en Redes Sociales</h2>
-    <label for="inputUsuario">Nombre de usuario (ej: angel_dev):</label>
-    <input type="text" id="inputUsuario" placeholder="angel_dev" />
-    <button id="btnBuscarUsuario">Buscar Usuario</button>
-    <div class="resultado resultado-scroll" id="resultadoUsuario">Aquí se mostrarán los resultados.</div>
-  </section>
-
-  <section>
-    <h2>5. Análisis de URL</h2>
-    <label for="inputURL">URL para analizar:</label>
-    <input type="url" id="inputURL" placeholder="https://ejemplo.com" />
-    <button id="btnAnalizarURL">Analizar URL</button>
-    <div class="resultado" id="resultadoURL">Aquí se mostrará el análisis.</div>
-  </section>
-
-  <section>
-    <h2>6. WHOIS Simplificado</h2>
-    <label for="inputDominio">Dominio (ej: ejemplo.com):</label>
-    <input type="text" id="inputDominio" placeholder="ejemplo.com" />
-    <button id="btnWhois">Consultar WHOIS</button>
-    <div class="resultado resultado-scroll" id="resultadoWhois">Aquí se mostrará la info WHOIS.</div>
-  </section>
-
-  <section>
-    <h2>7. Extraer Metadatos EXIF de Imagen</h2>
-    <label for="inputImagen">Sube una imagen para extraer metadatos:</label>
-    <input type="file" id="inputImagen" accept="image/*" />
-    <button id="btnExtraerExif">Extraer EXIF</button>
-    <div class="resultado resultado-scroll" id="resultadoExif">Aquí aparecerán los metadatos EXIF.</div>
-  </section>
-
-  <footer>
-    &copy; 2025 José Angel Rivas Sánchez - Centro OSINT Militar Avanzado
-  </footer>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-<script>
-  // Al cargar, mostrar mensaje 5s y luego ocultar y mostrar app
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const mensaje = document.getElementById('mensajeBienvenidaRestrictiva');
-      if(mensaje) {
-        mensaje.style.transition = 'opacity 1s ease';
-        mensaje.style.opacity = '0';
-        setTimeout(() => {
-          mensaje.style.display = 'none';
-          // Mostrar app principal
-          document.getElementById('app').style.display = 'block';
-        }, 1000);
-      }
-    }, 5000);
-  });
-
-  const apiKey = '0160e806256cb2fc38c587cac580a2bc';
-
-  // 1. Validar Número Telefónico
-  document.getElementById('btnValidarNumero').addEventListener('click', () => {
-    const num = document.getElementById('inputNumero').value.trim();
-    const res = document.getElementById('resultadoNumero');
-    if (!/^\+\d+$/.test(num)) {
-      res.textContent = 'Número inválido. Debe comenzar con + y contener solo dígitos.';
-      return;
-    }
-    res.textContent = 'Buscando número...';
-    fetch(`https://apilayer.net/api/validate?access_key=${apiKey}&number=${encodeURIComponent(num)}&format=1`)
-      .then(r => r.json())
-      .then(data => {
-        if(!data.valid) {
-          res.textContent = 'Número inválido o no encontrado.';
-          return;
-        }
-        res.innerText = 
-          `Número: ${data.number}\n` +
-          `Formato internacional: ${data.international_format}\n` +
-          `País: ${data.country_name}\n` +
-          `Ubicación: ${data.location || 'No disponible'}\n` +
-          `Operador: ${data.carrier || 'No disponible'}\n` +
-          `Tipo línea: ${data.line_type || 'No disponible'}`;
-      })
-      .catch(e => {
-        res.textContent = 'Error buscando número: ' + e.message;
-      });
-  });
-
-  // 2. Geolocalizar IP
-  document.getElementById('btnBuscarIP').addEventListener('click', () => {
-    const ip = document.getElementById('inputIP').value.trim();
-    const res = document.getElementById('resultadoIP');
-    if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(ip)) {
-      res.textContent = 'IP inválida. Ejemplo: 8.8.8.8';
-      return;
-    }
-    res.textContent = 'Buscando IP...';
-    fetch(`https://ipapi.co/${ip}/json/`)
-      .then(r => r.json())
-      .then(data => {
-        if(data.error) {
-          res.textContent = 'IP no encontrada o error en consulta.';
-          return;
-        }
-        res.innerText = 
-          `IP: ${data.ip}\n` +
-          `Ciudad: ${data.city || 'No disponible'}\n` +
-          `Región: ${data.region || 'No disponible'}\n` +
-          `País: ${data.country_name || 'No disponible'}\n` +
-          `ISP: ${data.org || 'No disponible'}`;
-      })
-      .catch(() => {
-        res.textContent = 'Error buscando IP.';
-      });
-  });
-
-  // 3. Verificar Email (sólo formato y mensaje)
-  document.getElementById('btnVerificarEmail').addEventListener('click', () => {
-    const email = document.getElementById('inputEmail').value.trim();
-    const res = document.getElementById('resultadoEmail');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      res.textContent = 'Email con formato inválido.';
-      return;
-    }
-    res.innerHTML = `Email válido.<br>Para verificar brechas, consultar en sitios como <a href="https://haveibeenpwned.com/" target="_blank" style="color:#3ddc97;">Have I Been Pwned</a>.`;
-  });
-
-  // 4. Buscar Usuario en redes
-  document.getElementById('btnBuscarUsuario').addEventListener('click', () => {
-    const username = document.getElementById('inputUsuario').value.trim();
-    const res = document.getElementById('resultadoUsuario');
-    if (!username) {
-      res.textContent = 'Introduce un nombre de usuario válido.';
-      return;
-    }
-    res.textContent = 'Buscando usuario en redes sociales...';
-
-    // Sitios a consultar
-    const sites = [
-      {name: 'Twitter', url: `https://twitter.com/${username}`},
-      {name: 'Instagram', url: `https://www.instagram.com/${username}`},
-      {name: 'GitHub', url: `https://github.com/${username}`},
-      {name: 'Reddit', url: `https://www.reddit.com/user/${username}`},
-      {name: 'TikTok', url: `https://www.tiktok.com/@${username}`},
-    ];
-
-    // Simplemente enlaces para abrir en pestaña nueva
-    let html = '';
-    sites.forEach(site => {
-      html += `<p>🔗 <a href="${site.url}" target="_blank" style="color:#3ddc97;">${site.name}</a></p>`;
-    });
-    res.innerHTML = html + '\n* Haz clic para abrir cada perfil y verificar existencia.';
-  });
-
-  // 5. Análisis básico URL
-  document.getElementById('btnAnalizarURL').addEventListener('click', () => {
-    const urlStr = document.getElementById('inputURL').value.trim();
-    const res = document.getElementById('resultadoURL');
-    if (!urlStr) {
-      res.textContent = 'Introduce una URL válida.';
-      return;
-    }
-    try {
-      const url = new URL(urlStr);
-      let info = `URL: ${url.href}\n`;
-      info += `Protocolo: ${url.protocol}\n`;
-      info += `Host: ${url.host}\n`;
-      info += `Dominio: ${url.hostname}\n`;
-      info += `Puerto: ${url.port || '(default)'}\n`;
-      info += `Ruta: ${url.pathname}\n`;
-      info += `Parámetros: ${url.search || 'Ninguno'}\n`;
-      info += `Hash: ${url.hash || 'Ninguno'}\n`;
-      info += `HTTPS: ${url.protocol === 'https:' ? 'Sí' : 'No'}\n`;
-      res.textContent = info;
-    } catch {
-      res.textContent = 'URL no válida.';
-    }
-  });
-
-  // 6. WHOIS simplificado (sólo obtiene y muestra contenido de dominio WHOIS)
-  document.getElementById('btnWhois').addEventListener('click', () => {
-    const domain = document.getElementById('inputDominio').value.trim();
-    const res = document.getElementById('resultadoWhois');
-    if (!domain) {
-      res.textContent = 'Introduce un dominio válido.';
-      return;
-    }
-    res.textContent = 'Consultando WHOIS...';
-
-    // Usaremos un proxy CORS para evitar bloqueo (alternativa: pedir que uses servidor backend)
-    // Aquí uso un servicio público, pero en producción debes tener tu propio backend o API
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const url = `https://whois.domaintools.com/${domain}`;
-
-    fetch(proxy + url)
-      .then(r => r.text())
-      .then(text => {
-        // Simplificamos mostrando parte del texto HTML como resultado
-        // Mejor opción: crear backend para parsear JSON WHOIS oficial
-        const snippet = text.substring(0, 1000);
-        res.textContent = snippet;
-      })
-      .catch(() => {
-        res.textContent = 'Error consultando WHOIS. Este servicio puede necesitar backend.';
-      });
-  });
-
-  // 7. Extraer metadatos EXIF de imagen
-  document.getElementById('btnExtraerExif').addEventListener('click', () => {
-    const fileInput = document.getElementById('inputImagen');
-    const res = document.getElementById('resultadoExif');
-    const file = fileInput.files[0];
-    if (!file) {
-      res.textContent = 'Debes subir una imagen primero.';
-      return;
-    }
-    res.textContent = 'Extrayendo metadatos EXIF...';
-
-    EXIF.getData(file, function() {
-      const allMetaData = EXIF.getAllTags(this);
-      if(Object.keys(allMetaData).length === 0) {
-        res.textContent = 'No se encontraron metadatos EXIF.';
-        return;
-      }
-      let output = '';
-      for (const tag in allMetaData) {
-        output += `${tag}: ${allMetaData[tag]}\n`;
-      }
-      res.textContent = output;
-    });
-  });
-</script>
-
 </body>
 </html>
