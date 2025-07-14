@@ -1,0 +1,47 @@
+from flask import Flask, request, jsonify
+import requests
+import subprocess
+import re
+
+app = Flask(__name__)
+
+# Configura tu API key de Numverify
+API_KEY = "45e849d4cf5b34b45a3709bfc79f0666"  # Cambia si no funciona
+NUMVERIFY_URL = "http://apilayer.net/api/validate"
+
+@app.route("/lookup")
+def lookup():
+    phone = request.args.get("number")
+    if not phone:
+        return jsonify({"error": "Número no proporcionado"})
+
+    result = {"number": phone}
+
+    # Consulta Numverify
+    try:
+        response = requests.get(NUMVERIFY_URL, params={"access_key": API_KEY, "number": phone})
+        data = response.json()
+        if data.get("valid"):
+            result.update({
+                "country": data.get("country_name", "No disponible"),
+                "carrier": data.get("carrier", "No disponible"),
+                "line_type": data.get("line_type", "No disponible")
+            })
+        else:
+            result["error"] = "Número inválido según Numverify"
+    except Exception as e:
+        result["error"] = f"Error en Numverify: {str(e)}"
+
+    # Consulta PhoneInfoga (búsqueda OSINT básica)
+    try:
+        # Ejecuta PhoneInfoga como subprocess (requiere instalación previa)
+        cmd = ["python3", "/path/to/phoneinfoga/phoneinfoga.py", "-n", phone]
+        osint_output = subprocess.check_output(cmd, text=True, timeout=30)
+        result["osint"] = osint_output[:500]  # Limita la salida para evitar sobrecarga
+    except Exception as e:
+        result["osint"] = f"No se pudo ejecutar PhoneInfoga: {str(e)}"
+
+    return jsonify(result)
+
+if __name__ == "__main__":
+    app.run(debug=True)
