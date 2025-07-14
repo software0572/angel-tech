@@ -1,235 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mantenimiento Técnico - Angel</title>
+  <meta charset="UTF-8">
+  <title>OSINT Platform - En Mantenimiento</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+    html,body {margin:0; padding:0; height:100%; font-family:'Montserrat',Arial,sans-serif; background:#101c2d;}
+    #particles-bg {position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:0; pointer-events:none;}
+    header {background:rgba(16,28,45,0.97); border-bottom:2px solid #00eaff33; box-shadow:0 3px 16px #00eaff18;}
+    .nav {max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:18px 24px;}
+    .brand {font-weight:800; color:#00eaff; font-size:2rem; letter-spacing:2px;}
+    .maintenance-badge {
+      display:inline-block;
+      background:linear-gradient(90deg,#00eaff 60%,#101c2d 100%);
+      color:#101c2d;
+      font-weight:bold;
+      font-size:1.07rem;
+      padding:6px 22px;
+      border-radius:14px;
+      margin-left:20px;
+      box-shadow:0 2px 8px #00eaff44;
+      letter-spacing:1px;
+      vertical-align:middle;
+      border:1.1px solid #00eaff;
+      animation:pulse 1.4s infinite alternate;
     }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      background-color: #0f0f0f;
-      overflow: hidden;
+    @keyframes pulse {
+      0% {box-shadow:0 2px 8px #00eaff44;}
+      100% {box-shadow:0 0 22px #00eaffcc;}
     }
-
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
+    main{position:relative;z-index:2;padding:0 0 40px 0;max-width:1100px;margin:0 auto;}
+    .hero{text-align:center;margin-top:60px;margin-bottom:40px;color:#fff;}
+    .hero h1{font-size:2.4rem;font-weight:900;color:#00eaff;text-shadow:0 0 20px #00eaff55;}
+    .hero p{font-size:1.2rem;color:#c8f7ff;letter-spacing:0.7px;margin-bottom:24px;}
+    .maintenance-msg {
+      background:rgba(0,234,255,0.13);
+      border:1.3px solid #00eaff66;
+      color:#00eaff;
+      font-size:1.22em;
+      font-weight:bold;
+      border-radius:13px;
+      padding:14px 16px;
+      margin:0 auto 25px auto;
+      max-width:440px;
+      box-shadow:0 1px 14px #00eaff22;
+      display:inline-block;
+      animation:fadeIn 1.3s;
     }
-
-    .content {
-      position: relative;
-      z-index: 1;
-      color: #e0e0e0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      padding: 20px;
+    @keyframes fadeIn {0%{opacity:0;transform:translateY(-30px);}100%{opacity:1;transform:translateY(0);}}
+    .tools{display:flex;flex-wrap:wrap;gap:26px;justify-content:center;margin-bottom:38px;}
+    .tool-card{
+      background:rgba(24,29,43,0.95);
+      border-radius:16px;
+      box-shadow:0 2px 12px #00eaff11;
+      max-width:350px; min-width:270px; flex:1 1 330px;
+      padding:28px 17px 18px 17px;
+      text-align:center;
+      border:1.2px solid #00eaff22;
+      opacity:0.5;
+      filter:grayscale(0.3);
+      pointer-events:none;
+      position:relative;
     }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 15px;
+    .tool-card h3{color:#00eaff;font-size:1.15rem;margin-bottom:18px;}
+    .tool-card .soon{
+      position:absolute;
+      top:12px; right:12px;
+      background:#00eaff;
+      color:#101c2d;
+      font-size:0.85em;
+      font-weight:bold;
+      padding:2.5px 12px;
+      border-radius:8px;
+      letter-spacing:1px;
+      box-shadow:0 2px 8px #00eaff55;
+      opacity:0.8;
     }
-
-    p {
-      max-width: 800px;
-      font-size: 1.1rem;
-      line-height: 1.7;
-      margin-bottom: 25px;
-      color: #bdbdbd;
-    }
-
-    .loader {
-      width: 60px;
-      height: 60px;
-      border: 6px solid rgba(255, 255, 255, 0.15);
-      border-top: 6px solid #ffffff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 25px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0); }
-      100% { transform: rotate(360deg); }
-    }
-
-    button {
-      margin: 8px;
-      padding: 10px 20px;
-      background: #1c1c1c;
-      color: #ffffff;
-      border: 1px solid #444;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-      z-index: 1;
-    }
-
-    button:hover {
-      background: #2b2b2b;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #666;
-      z-index: 1;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background-color: #1a1a1a;
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 600px;
-      color: #e0e0e0;
-      text-align: left;
-      box-shadow: 0 0 20px rgba(255,255,255,0.1);
-      position: relative;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 20px;
-      color: #999;
-      cursor: pointer;
-    }
-
-    .close-btn:hover {
-      color: #fff;
-    }
-
-    audio {
-      display: none;
-    }
+    .footer{margin-top:30px;color:#aef7ff;font-size:1em;opacity:0.7;letter-spacing:0.5px;text-align:center;z-index:12;text-shadow:0 2px 10px #00eaff33;font-weight:500;padding-bottom:18px;}
+    @media (max-width:900px){.tools{flex-direction:column;align-items:center;gap:19px;}}
+    @media (max-width:600px){.brand{font-size:1.1rem;}.hero h1{font-size:1.13rem;}.nav{padding:10px 4vw;}}
   </style>
 </head>
 <body>
-
-  <!-- Fondo de partículas -->
-  <div id="particles-js"></div>
-
-  <!-- Contenido -->
-  <div class="content">
-    <h1>Mantenimiento Técnico en Curso</h1>
-    <p>
-      Esta plataforma se encuentra temporalmente fuera de servicio por tareas de mantenimiento programado.<br>
-      Estamos realizando mejoras para garantizar un funcionamiento más estable y seguro.
-    </p>
-
-    <div class="loader"></div>
-
-    <button onclick="document.getElementById('audioFondo').play()">Activar sonido</button>
-    <button onclick="document.getElementById('modal').style.display='flex'">¿Quiénes somos?</button>
+<canvas id="particles-bg"></canvas>
+<header>
+  <div class="nav">
+    <span class="brand">OSINT Platform</span>
+    <span class="maintenance-badge">EN MANTENIMIENTO</span>
   </div>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="document.getElementById('modal').style.display='none'">&times;</span>
-      <h2>¿Quiénes somos?</h2>
-      <p>
-        Somos un equipo técnico dedicado a la investigación, pruebas y desarrollo de sistemas OSINT con fines educativos y demostrativos.<br><br>
-        Todo el sistema es mantenido, diseñado y supervisado por un único miembro: <strong>Angel</strong>.<br><br>
-        Las herramientas presentadas en esta plataforma son de uso exclusivo para entrenamiento y no representan actividades maliciosas.
-      </p>
+</header>
+<main>
+  <div class="hero" id="home">
+    <h1>Herramientas OSINT Avanzadas</h1>
+    <p>Tu plataforma de análisis, inteligencia y seguridad.<br>
+    <span style="color:#40e9ff;font-size:1rem;">Owner: José Ángel</span></p>
+    <div class="maintenance-msg">
+      La plataforma está actualmente en mantenimiento.<br>
+      Pronto podrás acceder a todas las herramientas OSINT.<br>
+      <span style="font-size:0.95em; color:#aef7ff;">¡Gracias por tu paciencia!</span>
     </div>
   </div>
-
-  <footer>
-    &copy; 2025 | Plataforma en mantenimiento | Gestión técnica: Angel
-  </footer>
-
-  <!-- Audio -->
-  <audio id="audioFondo" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_83f4978bc7.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Script de partículas -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-        "color": { "value": "#ffffff" },
-        "shape": {
-          "type": "circle",
-          "stroke": { "width": 0, "color": "#000000" },
-          "polygon": { "nb_sides": 5 }
-        },
-        "opacity": {
-          "value": 0.3,
-          "random": true,
-          "anim": { "enable": false }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": { "enable": false }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#ffffff",
-          "opacity": 0.1,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 1.5,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out"
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": true, "mode": "repulse" },
-          "onclick": { "enable": false },
-          "resize": true
-        },
-        "modes": {
-          "repulse": { "distance": 100, "duration": 0.4 }
-        }
-      },
-      "retina_detect": true
-    });
-  </script>
-
+  <div class="tools" id="tools">
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>Buscador de Usuario en Redes Sociales</h3>
+      <input type="text" disabled placeholder="Introduce un usuario...">
+      <button disabled>Buscar</button>
+      <div class="tool-result">Explora presencia en Twitter, Instagram, GitHub, Facebook, TikTok...</div>
+    </div>
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>Verificador de IP</h3>
+      <input type="text" disabled placeholder="Ej: 8.8.8.8">
+      <button disabled>Verificar</button>
+      <div class="tool-result">Geolocaliza y analiza IPs globalmente.</div>
+    </div>
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>Extractor de Metadatos de Imagen</h3>
+      <input type="file" disabled>
+      <button disabled>Extraer</button>
+      <div class="tool-result">Obtén datos de imágenes (EXIF, dimensiones, dispositivo...)</div>
+    </div>
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>Búsqueda de Email en Brechas</h3>
+      <input type="email" disabled placeholder="Introduce un email...">
+      <button disabled>Buscar</button>
+      <div class="tool-result">Verifica filtraciones con HaveIBeenPwned.</div>
+    </div>
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>Verificador de Teléfono</h3>
+      <input type="text" disabled placeholder="Ej: +34600000000">
+      <button disabled>Buscar</button>
+      <div class="tool-result">Consulta país, operador y validez.</div>
+    </div>
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>Buscador de Dominio (WHOIS)</h3>
+      <input type="text" disabled placeholder="Ej: github.com">
+      <button disabled>Consultar</button>
+      <div class="tool-result">Consulta registro y estado de dominios.</div>
+    </div>
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>Búsqueda de Leaks Públicos</h3>
+      <input type="text" disabled placeholder="Usuario/email/dominio...">
+      <button disabled>Buscar</button>
+      <div class="tool-result">Busca filtraciones en bases públicas.</div>
+    </div>
+    <div class="tool-card">
+      <span class="soon">PRÓXIMAMENTE</span>
+      <h3>OSINT de Números de Teléfono</h3>
+      <input type="text" disabled placeholder="Ej: +34123456789">
+      <button disabled>Buscar</button>
+      <div class="tool-result">Consulta internacional gratis y validación.</div>
+    </div>
+    <!-- Agrega más tarjetas de herramientas aquí si lo deseas -->
+  </div>
+</main>
+<div class="footer">
+  © 2025 OSINT Platform · Owner: José Ángel · Todos los derechos reservados
+</div>
+<script>
+  // Animación de partículas ligera y elegante
+  const canvas = document.getElementById('particles-bg');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
+  let particles = [];
+  const PARTICLE_NUM = Math.max(45, Math.floor(w * h / 18000));
+  function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; initParticles(); }
+  window.addEventListener('resize', resize);
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < PARTICLE_NUM; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 1.2 + Math.random() * 2.2,
+        dx: -0.22 + Math.random() * 0.44,
+        dy: -0.22 + Math.random() * 0.44,
+        alpha: 0.15 + Math.random() * 0.23
+      });
+    }
+  }
+  function drawParticles() {
+    ctx.clearRect(0, 0, w, h);
+    for (let p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI, false);
+      ctx.fillStyle = `rgba(0, 234, 255,${p.alpha})`;
+      ctx.fill();
+      p.x += p.dx; p.y += p.dy;
+      if (p.x < 0 || p.x > w) p.dx *= -1;
+      if (p.y < 0 || p.y > h) p.dy *= -1;
+    }
+    requestAnimationFrame(drawParticles);
+  }
+  initParticles(); drawParticles();
+</script>
 </body>
 </html>
