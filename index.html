@@ -1,40 +1,112 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSINT Phone Lookup - En Mantenimiento</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .maintenance-container {
-            text-align: center;
-            padding: 50px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 50px auto;
-        }
-        .maintenance-container h1 {
-            color: #d9534f;
-        }
-        .maintenance-container p {
-            color: #555;
-            margin: 20px 0;
-        }
-        .maintenance-container .icon {
-            font-size: 50px;
-            color: #d9534f;
-            margin-bottom: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚙️ Mantenimiento en Proceso</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .container {
+      animation: fadeIn 2s ease-in-out;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      animation: floatText 3s ease-in-out infinite;
+    }
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .loader {
+      border: 8px solid rgba(255,255,255,0.2);
+      border-top: 8px solid #00ffcc;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+      animation: spin 1.2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(50px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      opacity: 0.7;
+    }
+
+    .notice {
+      font-style: italic;
+      color: #00ffaa;
+      font-size: 1em;
+      margin-top: 10px;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      p { font-size: 1em; }
+      .container { padding: 25px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="maintenance-container">
-        <div class="icon">🛠️</div>
-        <h1>En Mantenimiento</h1>
-        <p>OSINT Phone Lookup está en mantenimiento. Estamos realizando varios tests para mejorar la web y nuestras herramientas.</p>
-        <p>¡Volveremos pronto con una mejor experiencia!</p>
-    </div>
+  <div class="container">
+    <h1>⚙️ Página en Mantenimiento</h1>
+    <div class="loader"></div>
+    <p>Estamos trabajando arduamente para mejorar la experiencia y optimizar todos los sistemas. Este mantenimiento es parte de una actualización mayor que traerá nuevas herramientas, mayor seguridad, y un rendimiento mucho más fluido.</p>
+    <p>Sabemos que el tiempo es valioso. Nuestro equipo técnico —compuesto por una sola persona con máxima experiencia— está ejecutando procedimientos de actualización avanzados.</p>
+    <div class="notice">⚠️ Recuerden que el único técnico, desarrollador y responsable de este sistema soy yo: <strong>Ángel</strong>. Todo está bajo control.</div>
+    <p>Gracias por tu paciencia. Esta página volverá más fuerte, más rápida y con muchas novedades.</p>
+    <footer>— Centro de Desarrollo Tecnológico • Ángel</footer>
+  </div>
+
+  <!-- Audio de fondo relajante -->
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_96ed6e6c37.mp3?filename=soft-piano-ambient-10762.mp3" type="audio/mp3">
+    Tu navegador no soporta audio HTML5.
+  </audio>
 </body>
 </html>
