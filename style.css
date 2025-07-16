@@ -1,151 +1,68 @@
 
-/* Estilos generales */
-
-    color: #bbdefb;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.comment-button:hover,
-.share-button:hover {
-    color: #64b5f6;
-}
-
-.comment-button i,
-.share-button i {
-    margin-right: 5px;
-}
-
-/* Footer */
-footer {
-    background-color: #212121;
-    padding: 20px;
+.modal-content h2 {
     text-align: center;
-    border-top: 1px solid #37474f;
-}
-
-/* Modales */
-.modal {
-    display: none; /* Oculto por defecto */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
-}
-
-.modal-content {
-    background-color: #303030;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 5px;
-    position: relative;
-}
-
-.close-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #aaaaaa;
-    font-size: 28px;
-    font-weight: bold;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Formulario en modales */
-.modal-content form {
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-content label {
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 .modal-content input {
+    width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #555;
+    border: none;
     border-radius: 5px;
-    background-color: #212121;
+    background-color: #455a64;
     color: #fff;
 }
 
-.modal-content button[type="submit"] {
-    background-color: #0277bd;
-    color: white;
-    padding: 12px 20px;
+.modal-content button {
+    background-color: #3498db;
+    color: #fff;
     border: none;
+    padding: 12px 25px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%;
 }
 
-.modal-content button[type="submit"]:hover {
-    background-color: #01579b;
+.modal-content button:hover {
+    background-color: #2980b9;
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Media Queries para Responsividad */
+/* Media Queries (Responsivo) */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
-    header .logo {
-        margin-bottom: 10px;
+    header nav {
+        margin-top: 20px;
     }
 
-    header nav ul {
-        flex-direction: column;
-    }
-
-    header nav ul li {
-        margin-left: 0;
-        margin-bottom: 10px;
-    }
-
-    .user-actions {
-        margin-top: 10px;
+    header nav a {
+        margin: 0 10px;
     }
 
     #hero {
-        padding: 50px;
+        padding: 60px 0;
     }
 
-    #hero h1 {
+    #hero h2 {
         font-size: 2.5em;
     }
+
+    .sections-grid {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+}
+
+/* Estilos adicionales para animaciones sutiles */
+.forum-section {
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+.forum-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4); /* Sombra más pronunciada */
 }
