@@ -1,193 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>OSINT Platform - Mantenimiento</title>
-<style>
-html,body{
-  margin:0;padding:0;height:100%;
-  background:#0e1824;
-  font-family:'Montserrat',Arial,sans-serif;
-  font-size:16px;
-  color:#eaf8ff;
-}
-#particles-bg{
-  position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;
-}
-header{
-  background:#101a24ea;
-  border-bottom:2px solid #00eaff22;
-  box-shadow:0 3px 20px #00eaff13;
-}
-.nav{
-  max-width:980px;
-  margin:0 auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 18px;
-}
-.brand-anim{
-  font-size:1.5rem;
-  font-weight:900;
-  letter-spacing:1px;
-  color:#00eaff;
-  filter:drop-shadow(0 0 8px #00eaff99);
-}
-nav a{
-  color:#fff;
-  text-decoration:none;
-  margin-left:22px;
-  font-weight:500;
-  font-size:1.04rem;
-  letter-spacing:.7px;
-  transition:color .2s;
-}
-nav a:hover,.active{color:#00eaff;}
-main{
-  position:relative;
-  z-index:2;
-  max-width:980px;
-  margin:0 auto;
-  padding:0 11px;
-}
-.mantenimiento-box{
-  margin:45px auto 30px auto;
-  background:rgba(18,32,54,0.98);
-  border-radius:20px;
-  box-shadow:0 7px 38px #00eaff2c,0 1px 7px #101a24;
-  padding:32px 25px 30px 25px;
-  max-width:560px;
-  min-width:240px;
-  text-align:center;
-  border:1.5px solid #00eaff29;
-  position:relative;
-}
-.mantenimiento-title{
-  font-size:2.1rem;
-  font-weight:800;
-  color:#00eaff;
-  text-shadow:0 0 18px #00eaff66,0 0 2px #fff;
-  margin-bottom:18px;
-  letter-spacing:1.5px;
-}
-.mantenimiento-warning{
-  font-size:1.2rem;
-  color:#FFA500;
-  margin-bottom:16px;
-  font-weight:700;
-  text-shadow:0 0 8px #FFA50044;
-}
-.mantenimiento-list{
-  background:#141c2a;
-  border-radius:12px;
-  padding:18px 15px;
-  color:#eaf8ff;
-  margin:0 auto 17px auto;
-  font-size:1.08em;
-  text-align:left;
-  max-width:430px;
-  box-shadow:0 0 8px #1a1a1a11;
-}
-.mantenimiento-list ul{
-  padding-left:17px;
-  margin:0;
-}
-.mantenimiento-list li{
-  margin-bottom:13px;
-  line-height:1.65;
-}
-.mantenimiento-list b{color:#00eaff;}
-.mantenimiento-aviso{
-  margin-top:8px;
-  color:#fffde0;
-  font-size:1.08rem;
-  line-height:1.7;
-  background:linear-gradient(90deg,#232323 60%,#101c2d 100%);
-  border-radius:10px;
-  padding:12px 10px;
-  box-shadow:0 0 7px #00eaff19;
-  font-weight:600;
-}
-@media (max-width:700px){
-  .mantenimiento-box{padding:16px 3vw;}
-  .mantenimiento-title{font-size:1.3rem;}
-  .brand-anim{font-size:1.07rem;}
-  .nav{padding:7px 2vw;}
-}
-@media (max-width:480px){
-  .mantenimiento-box{padding:10px 1vw;}
-  .mantenimiento-list{padding:10px 3px;}
-  .mantenimiento-aviso{padding:7px 3px;}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Hackers Éticos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<canvas id="particles-bg"></canvas>
-<header>
-  <div class="nav">
-    <span class="brand-anim">OSINT Platform</span>
-    <nav>
-      <a href="#home" class="active">Inicio</a>
-    </nav>
-  </div>
-</header>
-<main>
-  <div class="mantenimiento-box">
-    <div class="mantenimiento-title">Mantenimiento en progreso</div>
-    <div class="mantenimiento-warning">🔧 Estamos mejorando la plataforma</div>
-    <div class="mantenimiento-list">
-      <ul>
-        <li><b>Búsqueda avanzada por número de teléfono:</b> Te mostraremos nombre, perfiles sociales, operador y ubicación estimada.</li>
-        <li><b>Más información en resultados:</b> Reportes enriquecidos con datos útiles y enlaces directos.</li>
-        <li><b>Nuevo diseño responsivo:</b> Navegación cómoda y rápida desde Android, PC y cualquier dispositivo.</li>
-        <li><b>Mejoras de privacidad y seguridad:</b> Tus búsquedas serán más seguras y privadas.</li>
-      </ul>
+
+    <header>
+        <div class="logo">
+            <a href="#">Ethical Hacking Forum</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Categorías</a></li>
+                <li><a href="#">Artículos</a></li>
+                <li><a href="#">Recursos</a></li>
+                <li><a href="#">Comunidad</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <button id="loginBtn">Iniciar Sesión</button>
+            <button id="registerBtn">Registrarse</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Bienvenido al Foro de Hackers Éticos</h1>
+            <p>Un lugar para aprender, compartir y crecer en el mundo de la ciberseguridad.</p>
+            <a href="#categories" class="cta-button">Explorar Categorías</a>
+        </section>
+
+        <section id="categories">
+            <h2>Categorías</h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="pentesting">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Pentesting</h3>
+                    <p>Pruebas de penetración y evaluación de vulnerabilidades.</p>
+                </div>
+                <div class="category-card" data-category="forensics">
+                    <i class="fas fa-search"></i>
+                    <h3>Forensia Digital</h3>
+                    <p>Análisis de incidentes y recuperación de datos.</p>
+                </div>
+                <div class="category-card" data-category="malware">
+                    <i class="fas fa-bug"></i>
+                    <h3>Análisis de Malware</h3>
+                    <p>Investigación y desensamblaje de software malicioso.</p>
+                </div>
+                <div class="category-card" data-category="security">
+                    <i class="fas fa-lock"></i>
+                    <h3>Seguridad de Redes</h3>
+                    <p>Protección de infraestructuras y sistemas de red.</p>
+                </div>
+                 <div class="category-card" data-category="security">
+                    <i class="fas fa-key"></i>
+                    <h3>Criptografía</h3>
+                    <p>Estudio de algoritmos y protocolos para la seguridad de la información.</p>
+                </div>
+                 <div class="category-card" data-category="security">
+                    <i class="fas fa-user-secret"></i>
+                    <h3>Ingeniería Social</h3>
+                    <p>Técnicas y contramedidas para la manipulación humana.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="latest-posts">
+            <h2>Últimas Publicaciones</h2>
+            <div class="post-list">
+                <div class="post-card">
+                    <h3><a href="#">Nueva vulnerabilidad en OpenSSL</a></h3>
+                    <p class="post-meta">Publicado por <a href="#">@user123</a> el 15 de Noviembre, 2023</p>
+                    <p>Descripción breve de la vulnerabilidad y su impacto...</p>
+                    <div class="post-actions">
+                        <a href="#" class="comment-button"><i class="fas fa-comment"></i> Comentarios (12)</a>
+                        <a href="#" class="share-button"><i class="fas fa-share"></i> Compartir</a>
+                    </div>
+                </div>
+
+                <div class="post-card">
+                    <h3><a href="#">Guía para principiantes en Python para seguridad</a></h3>
+                    <p class="post-meta">Publicado por <a href="#">@hacker_etico</a> el 14 de Noviembre, 2023</p>
+                    <p>Introducción al uso de Python en el hacking ético...</p>
+                    <div class="post-actions">
+                        <a href="#" class="comment-button"><i class="fas fa-comment"></i> Comentarios (5)</a>
+                        <a href="#" class="share-button"><i class="fas fa-share"></i> Compartir</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Foro de Hackers Éticos. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Modales -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
     </div>
-    <div class="mantenimiento-aviso">
-      <span>Gracias por tu paciencia.<br>
-      Pronto tendrás acceso a nuevas funciones y una experiencia OSINT más avanzada.</span>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Registrarse</h2>
+            <form id="registerForm">
+                <label for="newUsername">Usuario:</label>
+                <input type="text" id="newUsername" name="newUsername" required>
+                <label for="newEmail">Email:</label>
+                <input type="email" id="newEmail" name="newEmail" required>
+                <label for="newPassword">Contraseña:</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
     </div>
-  </div>
-</main>
-<div class="footer" style="padding-bottom:20px;text-align:center;font-size:1em;color:#aef7ff;opacity:.7;">
-  © 2025 OSINT Platform · Owner: José Ángel · Todos los derechos reservados
-</div>
-<script>
-// Partículas de fondo fluidas y ligeras
-const canvas=document.getElementById('particles-bg'),ctx=canvas.getContext('2d');
-let w=canvas.width=window.innerWidth,h=canvas.height=window.innerHeight,now=0;
-window.addEventListener('resize',()=>{w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;createParticles();});
-let N=Math.max(22,Math.floor(w*h/26000)),P=[];
-function createParticles(){P=[];for(let i=0;i<N;i++){let a=2*Math.PI*Math.random();P.push({x:Math.random()*w,y:Math.random()*h,r:1.1+Math.random()*1.2,rad:a,speed:.022+.07*Math.random(),orbit:18+Math.random()*55,ox:Math.random()*w,oy:Math.random()*h,fx:Math.random()<.16})}}
-createParticles();
-(function draw(){
-  ctx.clearRect(0,0,w,h);
-  now+=0.016;
-  for(let p of P){
-    let px=p.ox+p.orbit*Math.cos(p.rad+now*p.speed),py=p.oy+p.orbit*Math.sin(p.rad+now*p.speed);
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(px,py,p.r,0,2*Math.PI,false);
-    let flick=p.fx?.6+.3*Math.abs(Math.sin(Date.now()/160+100*p.x)):1;
-    ctx.fillStyle=`rgba(0,234,255,${.19*flick})`;
-    ctx.shadowColor="#00eaff";
-    ctx.shadowBlur=p.fx?11:5;
-    ctx.fill();ctx.restore();
-    p.x=px;p.y=py;
-  }
-  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
-    let a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
-    if(d<60){
-      ctx.save();ctx.beginPath();
-      ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
-      ctx.strokeStyle=`rgba(0,250,255,${.06+(1-d/60)*.11})`;
-      ctx.lineWidth=.7;ctx.shadowColor="#0ff";ctx.shadowBlur=5;ctx.stroke();ctx.restore();
-    }
-  }
-  requestAnimationFrame(draw);
-})();
-</script>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
