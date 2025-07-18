@@ -1,34 +1,44 @@
-// ui.js (Funciones para manipulación de la interfaz de usuario)
+import express from "express";
+import fetch from "node-fetch";
+import cors from "cors";
 
-const UI = {
-    showModal: (modal) => {
-        modal.style.display = 'block';
-    },
+const app = express();
+const PORT = process.env.PORT || 3000;
+const API_KEY = process.env.ABUSEIPDB_API_KEY || "82e1b1e1bfc42d96f95dc8fcd1bb4317ebd18e56d684a28a8c293fb7c069e3d1cb7c04a4d81a51ec";
 
-    hideModal: (modal) => {
-        modal.style.display = 'none';
-    },
+app.use(cors());
+app.use(express.json());
 
-    showNotification: (message, type = 'info') => {
-        // Crear el elemento de notificación
-        const notification = document.createElement('div');
-        notification.classList.add('notification', type); // Clases CSS: notification, success/error/info
-        notification.textContent = message;
+// Endpoint para consultar AbuseIPDB sin exponer clave
+app.get("/api/check-ip/:ip", async (req, res) => {
+  const ip = req.params.ip;
 
-        // Agregar al body
-        document.body.appendChild(notification);
+  // Validación básica de IP
+  const ipRegex = /^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}$/;
+  if (!ipRegex.test(ip)) {
+    return res.status(400).json({ error: "IP inválida" });
+  }
 
-        // Animación de entrada
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 100);
+  try {
+    const response = await fetch(`https://api.abuseipdb.com/api/v2/check?ipAddress=${ip}&maxAgeInDays=90`, {
+      headers: {
+        Accept: "application/json",
+        Key: API_KEY,
+      },
+    });
 
-        // Ocultar después de unos segundos
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                notification.remove(); // Eliminar del DOM
-            }, 300); // Esperar la transición de salida
-        }, 3000); // Duración de la notificación
-    },
-};
+    if (!response.ok) {
+      return res.status(response.status).json({ error: "Error en AbuseIPDB API" });
+    }
+
+    const data = await response.json();
+    return res.json(data);
+  } catch (error) {
+    console.error("Error en backend:", error);
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Backend corriendo en http://localhost:${PORT}`);
+});
