@@ -1,0 +1,218 @@
+/* CSS Custom Properties (Variables) */
+:root {
+    /* Colors - Light Theme */
+    --primary-color: #0066FF;
+    --primary-light: #3385FF;
+    --primary-dark: #0052CC;
+    --secondary-color: #FF6B35;
+    --secondary-light: #FF8A5C;
+    --secondary-dark: #E55A2B;
+    --accent-color: #00D4AA;
+    --accent-light: #33DDBB;
+    --accent-dark: #00B894;
+    
+    /* Neutral Colors */
+    --neutral-dark: #1A1A1A;
+    --neutral-medium: #666666;
+    --neutral-light: #F8F9FA;
+    --white: #FFFFFF;
+    --black: #000000;
+    
+    /* Background Colors */
+    --background-color: var(--white);
+    --surface-color: var(--neutral-light);
+    --card-background: var(--white);
+    
+    /* Text Colors */
+    --text-primary: var(--neutral-dark);
+    --text-secondary: var(--neutral-medium);
+    --text-inverse: var(--white);
+    
+    /* Border Colors */
+    --border-color: #E5E7EB;
+    --border-focus: var(--primary-color);
+    
+    /* Shadow Colors */
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+    --shadow-heavy: rgba(0, 0, 0, 0.25);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    --gradient-surface: linear-gradient(135deg, var(--surface-color), var(--white));
+    
+    /* Typography */
+    --font-family-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    
+    /* Font Sizes */
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;     /* 16px */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;    /* 20px */
+    --font-size-2xl: 1.5rem;    /* 24px */
+    --font-size-3xl: 1.875rem;  /* 30px */
+    --font-size-4xl: 2.25rem;   /* 36px */
+    --font-size-5xl: 3rem;      /* 48px */
+    --font-size-6xl: 3.75rem;   /* 60px */
+    --font-size-7xl: 4.5rem;    /* 72px */
+    
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --font-weight-black: 900;
+    
+    /* Line Heights */
+    --line-height-tight: 1.25;
+    --line-height-snug: 1.375;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    --line-height-loose: 2;
+    
+    /* Spacing */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 2.5rem;   /* 40px */
+    --space-3xl: 3rem;     /* 48px */
+    --space-4xl: 4rem;     /* 64px */
+    --space-5xl: 5rem;     /* 80px */
+    --space-6xl: 6rem;     /* 96px */
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;   /* 4px */
+    --radius-md: 0.5rem;    /* 8px */
+    --radius-lg: 0.75rem;   /* 12px */
+    --radius-xl: 1rem;      /* 16px */
+    --radius-2xl: 1.5rem;   /* 24px */
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 var(--shadow-light);
+    --shadow-md: 0 4px 6px -1px var(--shadow-light), 0 2px 4px -1px var(--shadow-light);
+    --shadow-lg: 0 10px 15px -3px var(--shadow-medium), 0 4px 6px -2px var(--shadow-light);
+    --shadow-xl: 0 20px 25px -5px var(--shadow-medium), 0 10px 10px -5px var(--shadow-light);
+    --shadow-2xl: 0 25px 50px -12px var(--shadow-heavy);
+    
+    /* Z-Index */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+    --z-toast: 1080;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 250ms ease-in-out;
+    --transition-slow: 350ms ease-in-out;
+    
+    /* Animation Durations */
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 350ms;
+    --duration-slower: 500ms;
+    
+    /* Animation Easings */
+    --ease-linear: linear;
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Breakpoints (for use in container queries) */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+    
+    /* Container Sizes */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1400px;
+    
+    /* Grid */
+    --grid-columns: 12;
+    --grid-gap: var(--space-md);
+    
+    /* Glassmorphism */
+    --glass-background: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-backdrop: blur(10px);
+    
+    /* Neon Effects */
+    --neon-glow: 0 0 20px var(--accent-color);
+    --neon-glow-strong: 0 0 40px var(--accent-color);
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+    /* Background Colors */
+    --background-color: var(--neutral-dark);
+    --surface-color: #2A2A2A;
+    --card-background: #333333;
+    
+    /* Text Colors */
+    --text-primary: var(--white);
+    --text-secondary: #CCCCCC;
+    --text-inverse: var(--neutral-dark);
+    
+    /* Border Colors */
+    --border-color: #404040;
+    
+    /* Shadow Colors */
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --shadow-heavy: rgba(0, 0, 0, 0.6);
+    
+    /* Glassmorphism Dark */
+    --glass-background: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: var(--neutral-dark);
+        --shadow-light: rgba(0, 0, 0, 0.3);
+        --shadow-medium: rgba(0, 0, 0, 0.5);
+        --shadow-heavy: rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --transition-fast: 0ms;
+        --transition-normal: 0ms;
+        --transition-slow: 0ms;
+        --duration-fast: 0ms;
+        --duration-normal: 0ms;
+        --duration-slow: 0ms;
+        --duration-slower: 0ms;
+    }
+}
+
+/* Print styles */
+@media print {
+    :root {
+        --background-color: white;
+        --text-primary: black;
+        --text-secondary: #666;
+        --border-color: #ccc;
+    }
+}
+
