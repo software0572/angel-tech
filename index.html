@@ -1,138 +1,398 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Monitor AbuseIPDB - Reportes DDoS</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: #eee;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-    header {
-      background: #ff3b3f;
-      width: 100%;
-      padding: 1.2rem 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 6px rgba(255, 59, 63, 0.5);
-    }
-    main {
-      flex: 1;
-      width: 90%;
-      max-width: 700px;
-      margin: 2rem auto;
-      background: #1e1e1e;
-      border-radius: 8px;
-      padding: 2rem;
-      box-shadow: 0 4px 10px rgba(255, 59, 63, 0.3);
-    }
-    label {
-      display: block;
-      margin-bottom: 0.6rem;
-      font-weight: 600;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 0.8rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: none;
-      outline: none;
-      margin-bottom: 1rem;
-      background: #333;
-      color: #eee;
-    }
-    button {
-      background: #ff3b3f;
-      color: #fff;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-size: 1.1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-weight: 700;
-      width: 100%;
-    }
-    button:hover {
-      background: #d63031;
-    }
-    pre {
-      background: #222;
-      padding: 1rem;
-      border-radius: 6px;
-      overflow-x: auto;
-      max-height: 400px;
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      line-height: 1.3;
-      color: #00ff00;
-    }
-    .error {
-      color: #ff5555;
-      margin-top: 1rem;
-      font-weight: 700;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página web técnicamente profesional con las últimas tecnologías de desarrollo web">
+    <meta name="keywords" content="desarrollo web, CSS avanzado, JavaScript moderno, diseño responsivo">
+    <meta name="author" content="Desarrollador Web Profesional">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Web Profesional Técnica">
+    <meta property="og:description" content="Demostración técnicas de angel avanzadas de desarrollo web">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Web Profesional Técnica">
+    <meta name="twitter:description" content="Demostración de técnicas avanzadas de desarrollo web">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/main.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    
+    <title>Web Profesional Técnica | Desarrollo Avanzado</title>
 </head>
 <body>
-  <header>Monitor AbuseIPDB - Reportes de Abuso y DDoS</header>
-  <main>
-    <form id="formulario" autocomplete="off">
-      <label for="ipInput">Ingresa la dirección IP para consultar:</label>
-      <input type="text" id="ipInput" placeholder="Ejemplo: 8.8.8.8" required />
-      <button type="submit">Consultar</button>
-    </form>
-    <div id="mensaje" class="error"></div>
-    <pre id="resultado" hidden></pre>
-  </main>
-
-  <script>
-    const form = document.getElementById("formulario");
-    const ipInput = document.getElementById("ipInput");
-    const resultado = document.getElementById("resultado");
-    const mensaje = document.getElementById("mensaje");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      mensaje.textContent = "";
-      resultado.hidden = true;
-      resultado.textContent = "";
-
-      const ip = ipInput.value.trim();
-
-      // Validación sencilla IP
-      const ipRegex = /^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}$/;
-      if (!ipRegex.test(ip)) {
-        mensaje.textContent = "Por favor, ingresa una dirección IP válida.";
-        return;
-      }
-
-      try {
-        const res = await fetch(`/api/check-ip/${ip}`);
-        if (!res.ok) {
-          const err = await res.json();
-          mensaje.textContent = err.error || "Error consultando API";
-          return;
-        }
-        const data = await res.json();
-        resultado.textContent = JSON.stringify(data, null, 2);
-        resultado.hidden = false;
-      } catch (error) {
-        mensaje.textContent = "Error de conexión. Intenta más tarde.";
-      }
-    });
-  </script>
-</body>
-</html>
+    <!-- Custom cursor -->
+    <div class="custom-cursor" aria-hidden="true">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+    </div>
+    
+    <!-- Floating background elements -->
+    <div class="floating-elements" aria-hidden="true">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+    
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
+    <!-- Header with experimental navigation -->
+    <header class="header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Navegación principal">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="#home" aria-label="Inicio">
+                        <svg class="logo-svg" viewBox="0 0 100 100" aria-hidden="true">
+                            <circle cx="50" cy="50" r="45" class="logo-circle"/>
+                            <path d="M30 30 L70 50 L30 70 Z" class="logo-triangle"/>
+                        </svg>
+                        <span class="logo-text">WebPro</span>
+                    </a>
+                </div>
+                
+                <!-- Experimental radial navigation -->
+                <div class="nav-menu">
+                    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Abrir menú de navegación">
+                        <span class="nav-toggle-line"></span>
+                        <span class="nav-toggle-line"></span>
+                        <span class="nav-toggle-line"></span>
+                    </button>
+                    
+                    <ul class="nav-list" id="nav-list" role="list">
+                        <li class="nav-item">
+                            <a href="#home" class="nav-link" data-text="Inicio">
+                                <span class="nav-link-text">Inicio</span>
+                                <span class="nav-link-bg"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#about" class="nav-link" data-text="Acerca">
+                                <span class="nav-link-text">Acerca</span>
+                                <span class="nav-link-bg"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#features" class="nav-link" data-text="Características">
+                                <span class="nav-link-text">Características</span>
+                                <span class="nav-link-bg"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#showcase" class="nav-link" data-text="Showcase">
+                                <span class="nav-link-text">Showcase</span>
+                                <span class="nav-link-bg"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#contact" class="nav-link" data-text="Contacto">
+                                <span class="nav-link-text">Contacto</span>
+                                <span class="nav-link-bg"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Theme toggle -->
+                <button class="theme-toggle" aria-label="Cambiar tema" data-theme-toggle>
+                    <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main content -->
+    <main id="main-content" class="main" role="main">
+        
+        <!-- Hero Section - Full screen -->
+        <section id="home" class="hero" aria-labelledby="hero-title">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 id="hero-title" class="hero-title">
+                        <span class="hero-title-line" data-aos="fade-up" data-aos-delay="100">
+                            Desarrollo Web
+                        </span>
+                        <span class="hero-title-line hero-title-accent" data-aos="fade-up" data-aos-delay="200">
+                            Técnicamente
+                        </span>
+                        <span class="hero-title-line" data-aos="fade-up" data-aos-delay="300">
+                            Profesional
+                        </span>
+                    </h1>
+                    
+                    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="400">
+                        Demostración de las técnicas más avanzadas de CSS, JavaScript y diseño web moderno
+                    </p>
+                    
+                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="500">
+                        <a href="#features" class="btn btn-primary">
+                            <span class="btn-text">Explorar Características</span>
+                            <span class="btn-bg"></span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </a>
+                        
+                        <a href="#showcase" class="btn btn-secondary">
+                            <span class="btn-text">Ver Showcase</span>
+                            <span class="btn-bg"></span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Interactive 3D element -->
+                <div class="hero-visual" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="hero-cube">
+                        <div class="cube-face cube-front"></div>
+                        <div class="cube-face cube-back"></div>
+                        <div class="cube-face cube-right"></div>
+                        <div class="cube-face cube-left"></div>
+                        <div class="cube-face cube-top"></div>
+                        <div class="cube-face cube-bottom"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator" aria-hidden="true">
+                <div class="scroll-line"></div>
+                <div class="scroll-text">Scroll</div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="about section" aria-labelledby="about-title">
+            <div class="container">
+                <header class="section-header">
+                    <h2 id="about-title" class="section-title" data-aos="fade-up">
+                        Acerca de Este Proyecto
+                    </h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                        Una demostración completa de técnicas avanzadas de desarrollo web
+                    </p>
+                </header>
+                
+                <div class="about-content">
+                    <div class="about-text" data-aos="fade-right">
+                        <p>
+                            Esta página web ha sido desarrollada utilizando las técnicas más avanzadas y modernas 
+                            del desarrollo web frontend. Cada elemento ha sido cuidadosamente diseñado para 
+                            demostrar capacidades técnicas de vanguardia.
+                        </p>
+                        
+                        <div class="tech-stack">
+                            <h3 class="tech-stack-title">Tecnologías Implementadas</h3>
+                            <ul class="tech-list" role="list">
+                                <li class="tech-item">HTML5 Semántico</li>
+                                <li class="tech-item">CSS Grid & Flexbox Avanzado</li>
+                                <li class="tech-item">JavaScript ES2024</li>
+                                <li class="tech-item">Web Components</li>
+                                <li class="tech-item">CSS Custom Properties</li>
+                                <li class="tech-item">Intersection Observer API</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="about-visual" data-aos="fade-left">
+                        <div class="code-preview">
+                            <div class="code-header">
+                                <div class="code-dots">
+                                    <span class="code-dot code-dot-red"></span>
+                                    <span class="code-dot code-dot-yellow"></span>
+                                    <span class="code-dot code-dot-green"></span>
+                                </div>
+                                <span class="code-title">advanced-styles.css</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code>.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 100vh; 
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section - Bento Grid Layout -->
+        <section id="features" class="features section" aria-labelledby="features-title">
+            <div class="container">
+                <header class="section-header">
+                    <h2 id="features-title" class="section-title" data-aos="fade-up">
+                        Características Técnicas
+                    </h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                        Técnicas avanzadas implementadas en esta web
+                    </p>
+                </header>
+                
+                <div class="bento-grid" data-aos="fade-up" data-aos-delay="200">
+                    <article class="bento-item bento-large" data-feature="css-grid">
+                        <div class="bento-content">
+                            <h3 class="bento-title">CSS Grid Avanzado</h3>
+                            <p class="bento-description">
+                                Layouts complejos y responsivos utilizando CSS Grid con subgrid y container queries
+                            </p>
+                            <div class="bento-visual grid-demo" aria-hidden="true">
+                                <div class="grid-item"></div>
+                                <div class="grid-item"></div>
+                                <div class="grid-item"></div>
+                                <div class="grid-item"></div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="bento-item" data-feature="animations">
+                        <div class="bento-content">
+                            <h3 class="bento-title">Micro Animaciones</h3>
+                            <p class="bento-description">
+                                Animaciones sutiles que mejoran la experiencia del usuario
+                            </p>
+                            <div class="bento-visual animation-demo" aria-hidden="true">
+                                <div class="pulse-circle"></div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="bento-item" data-feature="3d-effects">
+                        <div class="bento-content">
+                            <h3 class="bento-title">Efectos 3D</h3>
+                            <p class="bento-description">
+                                Transformaciones 3D con CSS para elementos inmersivos
+                            </p>
+                            <div class="bento-visual cube-demo" aria-hidden="true">
+                                <div class="demo-cube">
+                                    <div class="cube-side"></div>
+                                    <div class="cube-side"></div>
+                                    <div class="cube-side"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="bento-item bento-wide" data-feature="scroll-effects">
+                        <div class="bento-content">
+                            <h3 class="bento-title">Scroll Triggered Animations</h3>
+                            <p class="bento-description">
+                                Animaciones activadas por scroll usando Intersection Observer API
+                            </p>
+                            <div class="bento-visual scroll-demo" aria-hidden="true">
+                                <div class="scroll-track">
+                                    <div class="scroll-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="bento-item" data-feature="glassmorphism">
+                        <div class="bento-content">
+                            <h3 class="bento-title">Glassmorphism</h3>
+                            <p class="bento-description">
+                                Efectos de vidrio esmerilado con backdrop-filter
+                            </p>
+                            <div class="bento-visual glass-demo" aria-hidden="true">
+                                <div class="glass-card"></div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="bento-item" data-feature="custom-properties">
+                        <div class="bento-content">
+                            <h3 class="bento-title">CSS Variables</h3>
+                            <p class="bento-description">
+                                Sistema de theming dinámico con custom properties
+                            </p>
+                            <div class="bento-visual theme-demo" aria-hidden="true">
+                                <div class="theme-swatch theme-light"></div>
+                                <div class="theme-swatch theme-dark"></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Showcase Section -->
+        <section id="showcase" class="showcase section" aria-labelledby="showcase-title">
+            <div class="container">
+                <header class="section-header">
+                    <h2 id="showcase-title" class="section-title" data-aos="fade-up">
+                        Showcase Interactivo
+                    </h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                        Experimenta con las funcionalidades avanzadas
+                    </p>
+                </header>
+                
+                <div class="showcase-content">
+                    <!-- Interactive demo area -->
+                    <div class="demo-area" data-aos="fade-up" data-aos-delay="200">
+                        <div class="demo-controls">
+                            <button class="demo-btn" data-demo="morphing">Morphing Shapes</button>
+                            <button class="demo-btn" data-demo="particles">Particle System</button>
+                            <button class="demo-btn" data-demo="fluid">Fluid Animation</button>
+                            <button class="demo-btn" data-demo="glitch">Glitch Effect</button>
+                        </div>
+                        
+                        <div class="demo-canvas" id="demo-canvas" aria-live="polite">
+                            <div class="demo-placeholder">
+                                <p>Selecciona una demostración para comenzar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="contact section" aria-labelledby="contact-title">
+            <div class="container">
+                <header class="section-header">
+                    <h2 id="contact-title" class="section-title" data-aos="fade-up">
+                        Contacto
+                    </h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                        ¿Interesado en desarrollo web avanzado?
+                    </p>
+                </header>
+                
+                <div class="contact-content">
+                    <div class="contact-inf
