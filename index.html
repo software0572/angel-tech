@@ -1,398 +1,247 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Página web técnicamente profesional con las últimas tecnologías de desarrollo web">
-    <meta name="keywords" content="desarrollo web, CSS avanzado, JavaScript moderno, diseño responsivo">
-    <meta name="author" content="Desarrollador Web Profesional">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Web Profesional Técnica">
-    <meta property="og:description" content="Demostración técnicas de angel avanzadas de desarrollo web">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Web Profesional Técnica">
-    <meta name="twitter:description" content="Demostración de técnicas avanzadas de desarrollo web">
-    
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-    <link rel="icon" type="image/png" href="assets/icons/favicon.png">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/animations.css">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="css/main.css" as="style">
-    <link rel="preload" href="js/main.js" as="script">
-    
-    <title>Web Profesional Técnica | Desarrollo Avanzado</title>
+    <title>José Angel Rivas Sánchez | Ciberseguridad</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header Estilo Neon */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f8fafc" opacity=".25"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shine 3s infinite alternate;
+        }
+        
+        @keyframes shine {
+            0% { text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(37, 99, 235, 0.8); }
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Tarjetas de Proyectos */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-img {
+            height: 200px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .project-desc {
+            color: #64748b;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #1d4ed8;
+        }
+        
+        /* Efecto de partículas */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Custom cursor -->
-    <div class="custom-cursor" aria-hidden="true">
-        <div class="cursor-dot"></div>
-        <div class="cursor-outline"></div>
-    </div>
+    <!-- Efecto de partículas -->
+    <div id="particles-js"></div>
     
-    <!-- Floating background elements -->
-    <div class="floating-elements" aria-hidden="true">
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape-3"></div>
-        <div class="floating-shape shape-4"></div>
-    </div>
-    
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    
-    <!-- Header with experimental navigation -->
-    <header class="header" role="banner">
-        <nav class="nav" role="navigation" aria-label="Navegación principal">
-            <div class="nav-container">
-                <div class="logo">
-                    <a href="#home" aria-label="Inicio">
-                        <svg class="logo-svg" viewBox="0 0 100 100" aria-hidden="true">
-                            <circle cx="50" cy="50" r="45" class="logo-circle"/>
-                            <path d="M30 30 L70 50 L30 70 Z" class="logo-triangle"/>
-                        </svg>
-                        <span class="logo-text">WebPro</span>
-                    </a>
-                </div>
-                
-                <!-- Experimental radial navigation -->
-                <div class="nav-menu">
-                    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Abrir menú de navegación">
-                        <span class="nav-toggle-line"></span>
-                        <span class="nav-toggle-line"></span>
-                        <span class="nav-toggle-line"></span>
-                    </button>
-                    
-                    <ul class="nav-list" id="nav-list" role="list">
-                        <li class="nav-item">
-                            <a href="#home" class="nav-link" data-text="Inicio">
-                                <span class="nav-link-text">Inicio</span>
-                                <span class="nav-link-bg"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#about" class="nav-link" data-text="Acerca">
-                                <span class="nav-link-text">Acerca</span>
-                                <span class="nav-link-bg"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#features" class="nav-link" data-text="Características">
-                                <span class="nav-link-text">Características</span>
-                                <span class="nav-link-bg"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#showcase" class="nav-link" data-text="Showcase">
-                                <span class="nav-link-text">Showcase</span>
-                                <span class="nav-link-bg"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#contact" class="nav-link" data-text="Contacto">
-                                <span class="nav-link-text">Contacto</span>
-                                <span class="nav-link-bg"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Theme toggle -->
-                <button class="theme-toggle" aria-label="Cambiar tema" data-theme-toggle>
-                    <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="12" r="5"/>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                    <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                </button>
-            </div>
-        </nav>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>José Angel Rivas Sánchez</h1>
+            <p class="tagline">Especialista en Ciberseguridad | Desarrollo de Herramientas Defensivas</p>
+        </div>
     </header>
     
-    <!-- Main content -->
-    <main id="main-content" class="main" role="main">
-        
-        <!-- Hero Section - Full screen -->
-        <section id="home" class="hero" aria-labelledby="hero-title">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <h1 id="hero-title" class="hero-title">
-                        <span class="hero-title-line" data-aos="fade-up" data-aos-delay="100">
-                            Desarrollo Web
-                        </span>
-                        <span class="hero-title-line hero-title-accent" data-aos="fade-up" data-aos-delay="200">
-                            Técnicamente
-                        </span>
-                        <span class="hero-title-line" data-aos="fade-up" data-aos-delay="300">
-                            Profesional
-                        </span>
-                    </h1>
-                    
-                    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="400">
-                        Demostración de las técnicas más avanzadas de CSS, JavaScript y diseño web moderno
-                    </p>
-                    
-                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="500">
-                        <a href="#features" class="btn btn-primary">
-                            <span class="btn-text">Explorar Características</span>
-                            <span class="btn-bg"></span>
-                            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                            </svg>
-                        </a>
-                        
-                        <a href="#showcase" class="btn btn-secondary">
-                            <span class="btn-text">Ver Showcase</span>
-                            <span class="btn-bg"></span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Interactive 3D element -->
-                <div class="hero-visual" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="hero-cube">
-                        <div class="cube-face cube-front"></div>
-                        <div class="cube-face cube-back"></div>
-                        <div class="cube-face cube-right"></div>
-                        <div class="cube-face cube-left"></div>
-                        <div class="cube-face cube-top"></div>
-                        <div class="cube-face cube-bottom"></div>
-                    </div>
-                </div>
+    <!-- Proyectos -->
+    <section class="projects">
+        <div class="project-card">
+            <div class="project-img">🛡️</div>
+            <div class="project-content">
+                <h3 class="project-title">HoneyPot Web</h3>
+                <p class="project-desc">Sistema señuelo para detectar y registrar intentos de intrusión en tiempo real.</p>
+                <a href="#" class="btn">Ver en GitHub</a>
             </div>
-            
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator" aria-hidden="true">
-                <div class="scroll-line"></div>
-                <div class="scroll-text">Scroll</div>
-            </div>
-        </section>
+        </div>
         
-        <!-- About Section -->
-        <section id="about" class="about section" aria-labelledby="about-title">
-            <div class="container">
-                <header class="section-header">
-                    <h2 id="about-title" class="section-title" data-aos="fade-up">
-                        Acerca de Este Proyecto
-                    </h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Una demostración completa de técnicas avanzadas de desarrollo web
-                    </p>
-                </header>
-                
-                <div class="about-content">
-                    <div class="about-text" data-aos="fade-right">
-                        <p>
-                            Esta página web ha sido desarrollada utilizando las técnicas más avanzadas y modernas 
-                            del desarrollo web frontend. Cada elemento ha sido cuidadosamente diseñado para 
-                            demostrar capacidades técnicas de vanguardia.
-                        </p>
-                        
-                        <div class="tech-stack">
-                            <h3 class="tech-stack-title">Tecnologías Implementadas</h3>
-                            <ul class="tech-list" role="list">
-                                <li class="tech-item">HTML5 Semántico</li>
-                                <li class="tech-item">CSS Grid & Flexbox Avanzado</li>
-                                <li class="tech-item">JavaScript ES2024</li>
-                                <li class="tech-item">Web Components</li>
-                                <li class="tech-item">CSS Custom Properties</li>
-                                <li class="tech-item">Intersection Observer API</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="about-visual" data-aos="fade-left">
-                        <div class="code-preview">
-                            <div class="code-header">
-                                <div class="code-dots">
-                                    <span class="code-dot code-dot-red"></span>
-                                    <span class="code-dot code-dot-yellow"></span>
-                                    <span class="code-dot code-dot-green"></span>
-                                </div>
-                                <span class="code-title">advanced-styles.css</span>
-                            </div>
-                            <div class="code-content">
-                                <pre><code>.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  min-height: 100vh; 
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-}</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="project-card">
+            <div class="project-img">🔍</div>
+            <div class="project-content">
+                <h3 class="project-title">Scanner de Vulnerabilidades</h3>
+                <p class="project-desc">Herramienta para identificar fallos comunes en aplicaciones web.</p>
+                <a href="#" class="btn">Ver Demo</a>
             </div>
-        </section>
+        </div>
         
-        <!-- Features Section - Bento Grid Layout -->
-        <section id="features" class="features section" aria-labelledby="features-title">
-            <div class="container">
-                <header class="section-header">
-                    <h2 id="features-title" class="section-title" data-aos="fade-up">
-                        Características Técnicas
-                    </h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Técnicas avanzadas implementadas en esta web
-                    </p>
-                </header>
-                
-                <div class="bento-grid" data-aos="fade-up" data-aos-delay="200">
-                    <article class="bento-item bento-large" data-feature="css-grid">
-                        <div class="bento-content">
-                            <h3 class="bento-title">CSS Grid Avanzado</h3>
-                            <p class="bento-description">
-                                Layouts complejos y responsivos utilizando CSS Grid con subgrid y container queries
-                            </p>
-                            <div class="bento-visual grid-demo" aria-hidden="true">
-                                <div class="grid-item"></div>
-                                <div class="grid-item"></div>
-                                <div class="grid-item"></div>
-                                <div class="grid-item"></div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <article class="bento-item" data-feature="animations">
-                        <div class="bento-content">
-                            <h3 class="bento-title">Micro Animaciones</h3>
-                            <p class="bento-description">
-                                Animaciones sutiles que mejoran la experiencia del usuario
-                            </p>
-                            <div class="bento-visual animation-demo" aria-hidden="true">
-                                <div class="pulse-circle"></div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <article class="bento-item" data-feature="3d-effects">
-                        <div class="bento-content">
-                            <h3 class="bento-title">Efectos 3D</h3>
-                            <p class="bento-description">
-                                Transformaciones 3D con CSS para elementos inmersivos
-                            </p>
-                            <div class="bento-visual cube-demo" aria-hidden="true">
-                                <div class="demo-cube">
-                                    <div class="cube-side"></div>
-                                    <div class="cube-side"></div>
-                                    <div class="cube-side"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <article class="bento-item bento-wide" data-feature="scroll-effects">
-                        <div class="bento-content">
-                            <h3 class="bento-title">Scroll Triggered Animations</h3>
-                            <p class="bento-description">
-                                Animaciones activadas por scroll usando Intersection Observer API
-                            </p>
-                            <div class="bento-visual scroll-demo" aria-hidden="true">
-                                <div class="scroll-track">
-                                    <div class="scroll-thumb"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <article class="bento-item" data-feature="glassmorphism">
-                        <div class="bento-content">
-                            <h3 class="bento-title">Glassmorphism</h3>
-                            <p class="bento-description">
-                                Efectos de vidrio esmerilado con backdrop-filter
-                            </p>
-                            <div class="bento-visual glass-demo" aria-hidden="true">
-                                <div class="glass-card"></div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <article class="bento-item" data-feature="custom-properties">
-                        <div class="bento-content">
-                            <h3 class="bento-title">CSS Variables</h3>
-                            <p class="bento-description">
-                                Sistema de theming dinámico con custom properties
-                            </p>
-                            <div class="bento-visual theme-demo" aria-hidden="true">
-                                <div class="theme-swatch theme-light"></div>
-                                <div class="theme-swatch theme-dark"></div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+        <div class="project-card">
+            <div class="project-img">📊</div>
+            <div class="project-content">
+                <h3 class="project-title">Dashboard de Amenazas</h3>
+                <p class="project-desc">Visualización en tiempo real de ataques cibernéticos globales.</p>
+                <a href="#" class="btn">Explorar</a>
             </div>
-        </section>
+        </div>
+    </section>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Inicializar partículas
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#3B82F6" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#3B82F6", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
         
-        <!-- Showcase Section -->
-        <section id="showcase" class="showcase section" aria-labelledby="showcase-title">
-            <div class="container">
-                <header class="section-header">
-                    <h2 id="showcase-title" class="section-title" data-aos="fade-up">
-                        Showcase Interactivo
-                    </h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Experimenta con las funcionalidades avanzadas
-                    </p>
-                </header>
-                
-                <div class="showcase-content">
-                    <!-- Interactive demo area -->
-                    <div class="demo-area" data-aos="fade-up" data-aos-delay="200">
-                        <div class="demo-controls">
-                            <button class="demo-btn" data-demo="morphing">Morphing Shapes</button>
-                            <button class="demo-btn" data-demo="particles">Particle System</button>
-                            <button class="demo-btn" data-demo="fluid">Fluid Animation</button>
-                            <button class="demo-btn" data-demo="glitch">Glitch Effect</button>
-                        </div>
-                        
-                        <div class="demo-canvas" id="demo-canvas" aria-live="polite">
-                            <div class="demo-placeholder">
-                                <p>Selecciona una demostración para comenzar</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        // Efecto de escritura automática
+        const tagline = document.querySelector('.tagline');
+        const phrases = [
+            "Innovando en defensa cibernética",
+            "Construyendo el futuro de la seguridad",
+            "Protegiendo sistemas con código ético"
+        ];
+        let currentPhrase = 0;
         
-        <!-- Contact Section -->
-        <section id="contact" class="contact section" aria-labelledby="contact-title">
-            <div class="container">
-                <header class="section-header">
-                    <h2 id="contact-title" class="section-title" data-aos="fade-up">
-                        Contacto
-                    </h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        ¿Interesado en desarrollo web avanzado?
-                    </p>
-                </header>
-                
-                <div class="contact-content">
-                    <div class="contact-inf
+        function typeWriter(text, i, cb) {
+            if (i < text.length) {
+                tagline.innerHTML = text.substring(0, i + 1);
+                setTimeout(() => typeWriter(text, i + 1, cb), 100);
+            } else {
+                setTimeout(cb, 1500);
+            }
+        }
+        
+        function changePhrase() {
+            typeWriter(phrases[currentPhrase], 0, () => {
+                currentPhrase = (currentPhrase + 1) % phrases.length;
+                setTimeout(() => typeWriter(phrases[currentPhrase], 0, changePhrase), 1000);
+            });
+        }
+        
+        // Iniciar efecto
+        setTimeout(changePhrase, 2000);
+    </script>
+</body>
+</html>
