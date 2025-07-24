@@ -3,245 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>José Angel Rivas Sánchez | Ciberseguridad</title>
+    <title>JARS CyberShield | Defensa de Última Generación</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --accent: #f59e0b;
+            --neon-blue: #0ff0fc;
+            --matrix-green: #00ff41;
+            --dark-matter: #0d0208;
+            --quantum-purple: #7b2dff;
         }
         
+        /* Reset Cuántico */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Courier New', monospace;
         }
         
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
+            background-color: var(--dark-matter);
+            color: var(--matrix-green);
+            overflow-x: hidden;
         }
         
-        /* Header Estilo Neon */
-        header {
-            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
+        /* Terminal HUD */
+        #cyber-terminal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            padding: 2rem;
+            background: rgba(13, 2, 8, 0.95);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            font-size: 1.2rem;
+        }
+        
+        #terminal-output {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        
+        #terminal-input {
+            background: transparent;
+            border: none;
+            border-top: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            font-family: 'Courier New', monospace;
+            padding: 0.5rem;
+            outline: none;
+            width: 100%;
+        }
+        
+        /* Main Interface */
+        .main-interface {
+            display: none; /* Se revela tras autenticación */
+            padding: 2rem;
+        }
+        
+        /* Quantum Grid Defense */
+        .quantum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .grid-item {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid var(--matrix-green);
+            border-radius: 5px;
+            padding: 1rem;
             position: relative;
             overflow: hidden;
         }
         
-        header::after {
+        .grid-item::before {
             content: '';
             position: absolute;
-            bottom: -50px;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f8fafc" opacity=".25"/></svg>');
-            background-size: cover;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                var(--neon-blue) 50%,
+                transparent 55%
+            );
+            animation: scan 4s linear infinite;
+            opacity: 0.3;
         }
         
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--accent), var(--primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: shine 3s infinite alternate;
+        @keyframes scan {
+            0% { transform: translateY(-100%) translateX(-100%) rotate(45deg); }
+            100% { transform: translateY(100%) translateX(100%) rotate(45deg); }
         }
         
-        @keyframes shine {
-            0% { text-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
-            100% { text-shadow: 0 0 20px rgba(37, 99, 235, 0.8); }
+        /* Cyber Auth */
+        .cyber-auth {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2000;
         }
         
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Tarjetas de Proyectos */
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 2rem;
-        }
-        
-        .project-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .project-img {
-            height: 200px;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-        }
-        
-        .project-content {
-            padding: 1.5rem;
-        }
-        
-        .project-title {
+        .auth-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--neon-blue);
+            color: var(--matrix-green);
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
+            text-align: center;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            outline: none;
         }
         
-        .project-desc {
-            color: #64748b;
-            margin-bottom: 1rem;
+        /* Animaciones */
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #ff00c1, -0.05em -0.025em 0 #00ff9d; }
+            14% { text-shadow: 0.05em 0 0 #ff00c1, -0.05em -0.025em 0 #00ff9d; }
+            15% { text-shadow: -0.05em -0.025em 0 #ff00c1, 0.025em 0.025em 0 #00ff9d; }
+            49% { text-shadow: -0.05em -0.025em 0 #ff00c1, 0.025em 0.025em 0 #00ff9d; }
+            50% { text-shadow: 0.025em 0.05em 0 #ff00c1, 0.05em 0 0 #00ff9d; }
+            99% { text-shadow: 0.025em 0.05em 0 #ff00c1, 0.05em 0 0 #00ff9d; }
+            100% { text-shadow: -0.025em 0 0 #ff00c1, -0.025em -0.025em 0 #00ff9d; }
         }
         
-        .btn {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: var(--primary);
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background 0.3s ease;
-        }
-        
-        .btn:hover {
-            background: #1d4ed8;
-        }
-        
-        /* Efecto de partículas */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .projects {
-                grid-template-columns: 1fr;
-            }
+        .glitch-text {
+            animation: glitch 650ms infinite;
         }
     </style>
 </head>
 <body>
-    <!-- Efecto de partículas -->
-    <div id="particles-js"></div>
+    <!-- Terminal de Autenticación -->
+    <div id="cyber-terminal">
+        <div id="terminal-output">
+            <p>> Inicializando JARS CyberShield v9.5.2...</p>
+            <p>> Cargando módulos de defensa cuántica...</p>
+            <p>> Verificando identidad...</p>
+            <p>> ACCESO DENEGADO. Autenticación requerida.</p>
+        </div>
+        <input type="text" id="terminal-input" placeholder="Ingrese clave de acceso...">
+    </div>
     
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <h1>José Angel Rivas Sánchez</h1>
-            <p class="tagline">Especialista en Ciberseguridad | Desarrollo de Herramientas Defensivas</p>
-        </div>
-    </header>
-    
-    <!-- Proyectos -->
-    <section class="projects">
-        <div class="project-card">
-            <div class="project-img">🛡️</div>
-            <div class="project-content">
-                <h3 class="project-title">HoneyPot Web</h3>
-                <p class="project-desc">Sistema señuelo para detectar y registrar intentos de intrusión en tiempo real.</p>
-                <a href="#" class="btn">Ver en GitHub</a>
-            </div>
-        </div>
-        
-        <div class="project-card">
-            <div class="project-img">🔍</div>
-            <div class="project-content">
-                <h3 class="project-title">Scanner de Vulnerabilidades</h3>
-                <p class="project-desc">Herramienta para identificar fallos comunes en aplicaciones web.</p>
-                <a href="#" class="btn">Ver Demo</a>
-            </div>
-        </div>
-        
-        <div class="project-card">
-            <div class="project-img">📊</div>
-            <div class="project-content">
-                <h3 class="project-title">Dashboard de Amenazas</h3>
-                <p class="project-desc">Visualización en tiempo real de ataques cibernéticos globales.</p>
-                <a href="#" class="btn">Explorar</a>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Inicializar partículas
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#3B82F6" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: "#3B82F6", opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: { enable: true, mode: "grab" },
-                    onclick: { enable: true, mode: "push" }
-                }
-            }
-        });
-        
-        // Efecto de escritura automática
-        const tagline = document.querySelector('.tagline');
-        const phrases = [
-            "Innovando en defensa cibernética",
-            "Construyendo el futuro de la seguridad",
-            "Protegiendo sistemas con código ético"
-        ];
-        let currentPhrase = 0;
-        
-        function typeWriter(text, i, cb) {
-            if (i < text.length) {
-                tagline.innerHTML = text.substring(0, i + 1);
-                setTimeout(() => typeWriter(text, i + 1, cb), 100);
-            } else {
-                setTimeout(cb, 1500);
-            }
-        }
-        
-        function changePhrase() {
-            typeWriter(phrases[currentPhrase], 0, () => {
-                currentPhrase = (currentPhrase + 1) % phrases.length;
-                setTimeout(() => typeWriter(phrases[currentPhrase], 0, changePhrase), 1000);
-            });
-        }
-        
-        // Iniciar efecto
-        setTimeout(changePhrase, 2000);
-    </script>
-</body>
-</html>
+    <!-- Interfaz Principal (Oculta inicialmente) -->
+    <div class="main-interface">
+        <h1 class="glitch-text">JARS CYBER DEFENSE MATRIX</h1
