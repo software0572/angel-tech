@@ -3,658 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Página de Prueba Creado por José angel Rivas Sánchez  | Especialista en Ciberseguridad Ofensiva/Defensiva</title>
+    <title>DSTAT Live Attack Simulator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0"></script>
     <style>
-        /* Sistema de diseño modular */
-        :root {
-            --primary: #1a365d;
-            --secondary: #2c5282;
-            --accent: #4299e1;
-            --text: #2d3748;
-            --light: #f7fafc;
-            --dark: #1a202c;
-            --success: #48bb78;
-            --warning: #ed8936;
-            --danger: #f56565;
-        }
-        
-        /* Reset profesional */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
-        }
-        
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
         body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-        
-        /* Barra de navegación fija */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(26, 54, 93, 0.97);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-        
-        .logo span {
-            color: var(--accent);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%234299e1" stroke-width="0.5" stroke-dasharray="5,5"/></svg>');
-            opacity: 0.15;
-        }
-        
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            padding-top: 6rem;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-        
-        .hero h1 span {
-            color: var(--accent);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background-color: var(--accent);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #3182ce;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-        
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        /* Sección "Sobre Mí" */
-        .section {
-            padding: 6rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 4px;
-            background-color: var(--accent);
-        }
-        
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-        
-        .about-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-        
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .skill-tag {
-            background-color: var(--accent);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        
-        .about-image {
-            position: relative;
-        }
-        
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Sección de Servicios */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .service-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .service-icon {
-            background-color: var(--primary);
-            color: white;
-            font-size: 2rem;
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        .service-content {
-            padding: 2rem;
-        }
-        
-        .service-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        /* Sección de Proyectos */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .project-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .project-image {
-            height: 200px;
-            background-color: var(--primary);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .project-card:hover .project-image img {
-            transform: scale(1.1);
-        }
-        
-        .project-content {
-            padding: 1.5rem;
-        }
-        
-        .project-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-        
-        .project-content p {
-            margin-bottom: 1rem;
-            color: var(--text);
-            opacity: 0.8;
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .project-tag {
-            background-color: var(--light);
-            color: var(--primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        /* Sección de Contacto */
-        .contact {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .contact .section-title {
-            color: white;
-        }
-        
-        .contact .section-title::after {
-            background-color: var(--accent);
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-        
-        .contact-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .contact-icon {
-            font-size: 1.5rem;
-            color: var(--accent);
-        }
-        
-        .contact-form {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .btn-submit {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-submit:hover {
-            background-color: #3182ce;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 5%;
-            text-align: center;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .social-links {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            font-family: 'Roboto Mono', monospace;
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        
-        .social-link {
-            color: white;
-            font-size: 1.5rem;
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid #0f3460;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #e94560;
+            margin: 0;
+            font-size: 1.5em;
+            text-shadow: 0 0 5px #e94560;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .controls button {
+            font-family: 'Roboto Mono', monospace;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
             transition: all 0.3s ease;
+            color: #fff;
+        }
+
+        #startAttackBtn {
+            background-color: #e94560;
+        }
+        #startAttackBtn:hover {
+            background-color: #c73048;
+            box-shadow: 0 0 15px #e94560;
+        }
+
+        #stopAttackBtn {
+            background-color: #16c79a;
+        }
+        #stopAttackBtn:hover {
+            background-color: #11a37e;
+            box-shadow: 0 0 15px #16c79a;
         }
         
-        .social-link:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
+        .chart-container {
+            position: relative;
+            height: 40vh;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
         }
-        
-        .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
+
+        .info-panel {
+            margin-top: 20px;
+            background-color: #0f3460;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
         }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-image {
-                order: -1;
-            }
+
+        .info-panel p {
+            margin: 5px 0;
         }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
+
+        .info-panel span {
+            color: #16c79a;
+            font-weight: bold;
         }
-        
-        /* Animaciones */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 1s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
     </style>
-    <!-- Iconos de Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Barra de navegación -->
-    <header>
-        <nav>
-            <a href="#" class="logo">JARS<span>Cyber</span></a>
-            <div class="nav-links">
-                <a href="#about">Sobre Mí</a>
-                <a href="#services">Servicios</a>
-                <a href="#projects">Proyectos</a>
-                <a href="#contact">Contacto</a>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Sección Hero -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="fade-in">José Angel Rivas Sánchez</h1>
-            <p class="fade-in delay-1">Especialista en Ciberseguridad con 5+ años de experiencia en protección de sistemas críticos y pruebas de penetración.</p>
-            <div class="cta-buttons fade-in delay-2">
-                <a href="#contact" class="btn btn-primary">Contrátame</a>
-                <a href="#projects" class="btn btn-secondary">Ver Proyectos</a>
-            </div>
+    <div class="container">
+        <div class="header">
+            <h1>Live Layer 7 DSTAT Simulator</h1>
         </div>
-    </section>
 
-    <!-- Sección Sobre Mí -->
-    <section id="about" class="section">
-        <h2 class="section-title fade-in">Sobre Mí</h2>
-        <div class="about-grid">
-            <div class="about-text fade-in delay-1">
-                <p>Soy un profesional de la ciberseguridad con experiencia en entornos corporativos y gubernamentales. Mi enfoque combina conocimientos técnicos profundos con una comprensión estratégica de la gestión de riesgos.</p>
-                <p>Especializado en:</p>
-                <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
-                    <li>Pruebas de penetración éticas</li>
-                    <li>Diseño de arquitecturas seguras</li>
-                    <li>Respuesta a incidentes</li>
-                    <li>Forensia digital</li>
-                </ul>
-                <p>Mi metodología se basa en estándares internacionales como NIST, ISO 27001 y OWASP, adaptándolos a las necesidades específicas de cada organización.</p>
+        <div class="controls">
+            <button id="startAttackBtn">▶ Iniciar Simulación de Ataque</button>
+            <button id="stopAttackBtn">■ Detener Simulación</button>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="attackChart"></canvas>
+        </div>
+
+        <div class="info-panel">
+            <p>Objetivo Simulado: <span>my-secure-lab.com</span></p>
+            <p>Peticiones/seg (Pico): <span id="peakRps">0</span></p>
+            <p>Peticiones Totales: <span id="totalRequests">0</span></p>
+            <p>Estado: <span id="status">Inactivo</span></p>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('attackChart').getContext('2d');
+        let attackChart;
+        let simulationInterval;
+        let totalRequests = 0;
+        let peakRps = 0;
+
+        // --- Configuración de la Gráfica ---
+        function createChart() {
+            if (attackChart) {
+                attackChart.destroy();
+            }
+            attackChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Peticiones/seg',
+                        data: [],
+                        borderColor: '#e94560',
+                        backgroundColor: 'rgba(233, 69, 96, 0.5)',
+                        fill: true,
+                        borderWidth: 2,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'second',
+                                displayFormats: {
+                                    second: 'HH:mm:ss'
+                                }
+                            },
+                            ticks: { color: '#e0e0e0' },
+                            grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { 
+                                color: '#e0e0e0',
+                                callback: function(value) {
+                                    if (value >= 1000) {
+                                        return (value / 1000) + 'K';
+                                    }
+                                    return value;
+                                }
+                            },
+                            grid: { color: 'rgba(224, 224, 224, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // --- Lógica de la Simulación ---
+        function startSimulation() {
+            if (simulationInterval) return; // Evita iniciar múltiples simulaciones
+
+            document.getElementById('status').textContent = 'Activo';
+            document.getElementById('status').style.color = '#e94560';
+            
+            let currentRps = 0;
+            const maxRps = 25000; // Simula un pico de 25K peticiones/seg
+            const rampUpTime = 20; // Segundos para alcanzar el pico
+            let step = 0;
+
+            simulationInterval = setInterval(() => {
+                // Simula la subida inicial del ataque
+                if (step < rampUpTime) {
+                    currentRps = (maxRps / rampUpTime) * step;
+                } else {
+                    // Simula las fluctuaciones de un ataque real
+                    const fluctuation = (Math.random() - 0.5) * (maxRps * 0.4);
+                    currentRps = maxRps * 0.75 + fluctuation;
+                }
                 
-                <div class="skills">
-                    <span class="skill-tag">Pentesting</span>
-                    <span class="skill-tag">Red Team</span>
-                    <span class="skill-tag">Ethical Hacking</span>
-                    <span class="skill-tag">Forensia Digital</span>
-                    <span class="skill-tag">Seguridad en la Nube</span>
-                    <span class="skill-tag">DevSecOps</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Rust</span>
-                    <span class="skill-tag">SIEM</span>
-                    <span class="skill-tag">OSCP</span>
-                    <span class="skill-tag">CISSP</span>
-                </div>
-            </div>
-            <div class="about-image fade-in delay-2">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="José Angel Rivas Sánchez">
-            </div>
-        </div>
-    </section>
+                currentRps = Math.max(0, Math.floor(currentRps)); // Asegura que no sea negativo
 
-    <!-- Sección Servicios -->
-    <section id="services" class="section">
-        <h2 class="section-title fade-in">Servicios Profesionales</h2>
-        <div class="services-grid">
-            <div class="service-card fade-in delay-1">
-                <div class="service-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Auditorías de Seguridad</h3>
-                    <p>Evaluación exhaustiva de infraestructuras IT para identificar vulnerabilidades antes que los atacantes.</p>
-                    <ul style="margin-left: 1rem; color: var(--text); opacity: 0.8;">
-                        <li>Pruebas de penetración internas/externas</li>
-                        <li>Análisis de configuración segura</li>
-                        <li>Revisión de arquitectura</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="service-card fade-in delay-2">
-                <div class="service-icon">
-                    <i class="fas fa-user-secret"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Red Team Operations</h3>
-                    <p>Simulaciones de ataques realistas para evaluar la capacidad de detección y respuesta de tu organización.</p>
-                    <ul style="margin-left: 1rem; color: var(--text); opacity: 0.8;">
-                        <li>Ejercicios de phishing controlado</li>
-                        <li>Movimiento lateral en redes</li>
-                        <li>Evasión de sistemas de detección</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="service-card fade-in delay-3">
-                <div class="service-icon">
-                    <i class="fas fa-laptop-code"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Desarrollo Seguro</h3>
-                    <p>Integración de seguridad en el ciclo de vida de desarrollo (SDLC) para aplicaciones resistentes a ataques.</p>
-                    <ul style="margin-left: 1rem; color: var(--text); opacity: 0.8;">
-                        <li>Revisión de código estático/dinámico</li>
-                        <li>Implementación de DevSecOps</li>
-                        <li>Entrenamiento para desarrolladores</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="service-card fade-in delay-1">
-                <div class="service-icon">
-                    <i class="fas fa-ambulance"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Respuesta a Incidentes</h3>
-                    <p>Contención, erradicación y recuperación ante brechas de seguridad confirmadas.</p>
-                    <ul style="margin-left: 1rem; color: var(--text); opacity: 0.8;">
-                        <li>Análisis forense digital</li>
-                        <li>Identificación del alcance</li>
-                        <li>Recomendaciones post-incidente</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="service-card fade-in 
+                // Actualiza los datos de la gráfica
+                const now = Date.now();
+                attackChart.data.labels.push(now);
+                attackChart.data.datasets[0].data.push(currentRps);
+
+                // Limita los datos en pantalla para que no se sature
+                if (attackChart.data.labels.length > 60) {
+                    attackChart.data.labels.shift();
+                    attackChart.data.datasets[0].data.shift();
+                }
+
+                attackChart.update('none');
+
+                // Actualiza los contadores
+                totalRequests += currentRps;
+                if (currentRps > peakRps) {
+                    peakRps = currentRps;
+                }
+                document.getElementById('totalRequests').textContent = totalRequests.toLocaleString();
+                document.getElementById('peakRps').textContent = peakRps.toLocaleString();
+
+                step++;
+            }, 1000);
+        }
+
+        function stopSimulation() {
+            clearInterval(simulationInterval);
+            simulationInterval = null;
+            document.getElementById('status').textContent = 'Inactivo';
+            document.getElementById('status').style.color = '#16c79a';
+        }
+        
+        function resetSimulation() {
+            stopSimulation();
+            totalRequests = 0;
+            peakRps = 0;
+            document.getElementById('totalRequests').textContent = '0';
+            document.getElementById('peakRps').textContent = '0';
+            createChart();
+        }
+
+        // --- Event Listeners ---
+        document.getElementById('startAttackBtn').addEventListener('click', () => {
+            resetSimulation();
+            startSimulation();
+        });
+
+        document.getElementById('stopAttackBtn').addEventListener('click', stopSimulation);
+
+        // Inicia la gráfica al cargar la página
+        window.onload = createChart;
+    </script>
+
+</body>
+</html>
